@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 626177829247762023}
   - component: {fileID: 2440164735367994076}
+  - component: {fileID: 8139622985555127922}
   m_Layer: 0
   m_Name: shootingCollider
   m_TagString: Untagged
@@ -51,10 +52,52 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 6.1620536
+  m_Radius: 11
   m_Height: 12.324107
   m_Direction: 1
-  m_Center: {x: 1.2758708, y: 0.06291294, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8139622985555127922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3209678526728675992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7f8ea0bb670f5d4297b40ec1b55eb27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnShootingEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1196908873325891760}
+        m_TargetAssemblyTypeName: ShootingEnemy, Assembly-CSharp
+        m_MethodName: StartShooting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnShootingExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1196908873325891760}
+        m_TargetAssemblyTypeName: ShootingEnemy, Assembly-CSharp
+        m_MethodName: StopShooting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3660619640628922714
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,6 +134,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 626177829247762023}
+  - {fileID: 532529935849095970}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5639729222317251795
@@ -232,3 +276,103 @@ MonoBehaviour:
   Acceleration: 15
   Bullet: {fileID: 1296380556211840549, guid: 37776a60b12bd1a4ca44f16d143b8883, type: 3}
   AttackSpeed: 1.5
+  ShootingCollider: {fileID: 2440164735367994076}
+  MovementCollider: {fileID: 6057223421696430910}
+--- !u!1 &4721457973175928278
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 532529935849095970}
+  - component: {fileID: 6057223421696430910}
+  - component: {fileID: 7654636006379764354}
+  m_Layer: 0
+  m_Name: movementCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &532529935849095970
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4721457973175928278}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4668158447815226145}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &6057223421696430910
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4721457973175928278}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Height: 12.324107
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7654636006379764354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4721457973175928278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b40d9648aa9e27f41bea808f5a6d9205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnMoventEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1196908873325891760}
+        m_TargetAssemblyTypeName: ShootingEnemy, Assembly-CSharp
+        m_MethodName: StartMovment
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnMoventExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1196908873325891760}
+        m_TargetAssemblyTypeName: ShootingEnemy, Assembly-CSharp
+        m_MethodName: StopMovment
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

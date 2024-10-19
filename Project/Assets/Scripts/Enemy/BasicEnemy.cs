@@ -43,14 +43,8 @@ public class BasicEnemy : MonoBehaviour
         Debug.Log("Enemy died");
     }
 
-    protected virtual void OnTriggerEnter(Collider other)
+    protected void Resetspeed()
     {
-        // Generic enemy trigger behavior (can be extended by derived classes)
-    }
-
-    protected virtual void OnTriggerExit(Collider other)
-    {
-        // Reset speed or other behaviors
         _agent.speed = _speedSave;
     }
 }

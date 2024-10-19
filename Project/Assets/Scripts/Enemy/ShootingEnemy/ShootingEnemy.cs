@@ -2,32 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class ShootingEnemy : BasicEnemy
 {
     public GameObject Bullet;
     public float AttackSpeed = 1.5f;
 
-    protected override void OnTriggerEnter(Collider other)
+
+
+    public void StartMovment()
     {
-        PlayerController playerController;
-        if (other.TryGetComponent<PlayerController>(out playerController))
-        {
-            _agent.speed = 0;
-            _agent.velocity = Vector3.zero;
-            InvokeRepeating("Shoot", 0.01f, AttackSpeed);
-        }
+        Debug.Log("movenent entering");
+        base.Resetspeed(); // Reset base behavior
     }
 
-    protected override void OnTriggerExit(Collider other)
+    public void StopMovment()
     {
-        PlayerController playerController;
-        if (other.TryGetComponent<PlayerController>(out playerController))
-        {
-            base.OnTriggerExit(other); // Reset base behavior
+        Debug.Log("movenent exit");
+        _agent.speed = 0;
+        _agent.velocity = Vector3.zero;
+    }
+
+    public void StartShooting()
+    {
+        Debug.Log("shooting enter");
+        InvokeRepeating("Shoot", 0.05f, 0.05f);
+    }
+
+    public void StopShooting()
+    {
+        Debug.Log("shooting exit");
         CancelInvoke("Shoot");
-
-        }
-
     }
 
     /// <summary>
