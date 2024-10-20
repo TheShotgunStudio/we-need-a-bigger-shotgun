@@ -66,6 +66,15 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        RotateCamera(_look);
+    }
+
+    /// <summary>
+    /// Rotates the camera based on the input received in the look vector
+    /// </summary>
+    /// <param name="look">A vector describing a change in mouse movement since the last frame</param>
+    public void RotateCamera(Vector2 look)
+    {
         float angleX = CameraFollowTarget.transform.localEulerAngles.x;
 
         // Maximum down and up rotation respectively
@@ -78,17 +87,18 @@ public class CameraController : MonoBehaviour
         if (angleX > 180)
         {
             factor = Mathf.Cos((angleX - 360) / -(360 - minY - 10) * 0.5F * Mathf.PI);
-        } else
+        }
+        else
         {
             factor = Mathf.Cos((angleX) / -(maxY + 10.0F) * 0.5F * Mathf.PI);
         }
 
         // Rotate the Follow Target transform around the X axis based on the input
-        float angleChange = _look.x * SensitivityX * GeneralCameraSensitivity * (InvertCameraX ? -1.0F : 1.0F) * factor;
+        float angleChange = look.x * SensitivityX * GeneralCameraSensitivity * (InvertCameraX ? -1.0F : 1.0F) * factor;
         CameraFollowTarget.transform.rotation *= Quaternion.AngleAxis(angleChange, Vector3.up);
 
         // Rotate around the Y axis
-        angleChange = _look.y * SensitivityY * GeneralCameraSensitivity * (InvertCameraY ? 1.0F : -1.0F);
+        angleChange = look.y * SensitivityY * GeneralCameraSensitivity * (InvertCameraY ? 1.0F : -1.0F);
         CameraFollowTarget.transform.rotation *= Quaternion.AngleAxis(angleChange, Vector3.right);
 
         // Update angles with new rotation
@@ -105,7 +115,7 @@ public class CameraController : MonoBehaviour
         {
             localEulerAngles.x = maxY;
         }
-        
+
         // Rotate around the X axis
         CameraFollowTarget.transform.localEulerAngles = localEulerAngles;
     }
