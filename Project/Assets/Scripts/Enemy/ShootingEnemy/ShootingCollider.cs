@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class ShootingCollider : MonoBehaviour
 {
-
     public UnityEvent OnShootingEnter;
     public UnityEvent OnShootingExit;
 

@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class BasicEnemy : MonoBehaviour
 {
     public GameObject Player;
-    protected NavMeshAgent _agent;
+    protected NavMeshAgent Agent;
 
     public float Speed;
     private float _speedSave;
@@ -15,9 +15,9 @@ public class BasicEnemy : MonoBehaviour
 
     protected virtual void Start()
     {
-        _agent = GetComponent<NavMeshAgent>();
-        _agent.speed = Speed;
-        _agent.acceleration = Acceleration;
+        Agent = GetComponent<NavMeshAgent>();
+        Agent.speed = Speed;
+        Agent.acceleration = Acceleration;
         _speedSave = Speed;
     }
 
@@ -31,7 +31,7 @@ public class BasicEnemy : MonoBehaviour
     /// </summary>
     protected void MoveToPlayer()
     {
-        _agent.SetDestination(Player.transform.position);
+        Agent.SetDestination(Player.transform.position);
     }
 
     /// <summary>
@@ -45,6 +45,6 @@ public class BasicEnemy : MonoBehaviour
 
     protected void Resetspeed()
     {
-        _agent.speed = _speedSave;
+        Agent.speed = _speedSave;
     }
 }

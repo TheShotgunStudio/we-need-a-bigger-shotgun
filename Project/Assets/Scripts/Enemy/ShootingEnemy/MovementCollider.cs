@@ -12,7 +12,7 @@ public class MovementCollider : MonoBehaviour
     {
         if (other.TryGetComponent<PlayerController>(out PlayerController playerController))
         {
-            OnMoventExit.Invoke();
+            OnMoventEnter.Invoke();
         }
     }
 
@@ -20,7 +20,7 @@ public class MovementCollider : MonoBehaviour
     {
         if (other.TryGetComponent<PlayerController>(out PlayerController playerController))
         {
-            OnMoventEnter.Invoke();
+            OnMoventExit.Invoke();
         }
     }
 }

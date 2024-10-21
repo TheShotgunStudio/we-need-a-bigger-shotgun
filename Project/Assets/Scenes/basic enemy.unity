@@ -3945,59 +3945,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!1 &809275279
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 809275280}
-  - component: {fileID: 809275281}
-  m_Layer: 8
-  m_Name: EnemyShootCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &809275280
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 809275279}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1820372048}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &809275281
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 809275279}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 11.193605, y: 3.0656824, z: 10.735119}
-  m_Center: {x: -0.052598, y: 1.0328412, z: 0.15479851}
 --- !u!43 &875828104
 Mesh:
   m_ObjectHideFlags: 0
@@ -4374,7 +4321,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.26
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: ef1b745e9b6d5e1488c3ef371f3e2637, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 8b6cd8bcd40c46b48884314c4f2c02d8, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &954995105
 Transform:
@@ -7982,7 +7929,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 768374723}
-  - {fileID: 809275280}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1820372049
@@ -8187,9 +8133,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1196908873325891760, guid: 67e280978d3d05f4d8b25db002db1337,
         type: 3}
+      propertyPath: Speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1196908873325891760, guid: 67e280978d3d05f4d8b25db002db1337,
+        type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 1820372042}
+    - target: {fileID: 1196908873325891760, guid: 67e280978d3d05f4d8b25db002db1337,
+        type: 3}
+      propertyPath: AttackSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1196908873325891760, guid: 67e280978d3d05f4d8b25db002db1337,
         type: 3}
       propertyPath: MoventEvent.m_PersistentCalls.m_Calls.Array.size
@@ -8204,6 +8160,11 @@ PrefabInstance:
         type: 3}
       propertyPath: MoventEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1741503854496451360, guid: 67e280978d3d05f4d8b25db002db1337,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3660619640628922714, guid: 67e280978d3d05f4d8b25db002db1337,
         type: 3}
@@ -8303,12 +8264,12 @@ PrefabInstance:
     - target: {fileID: 7654636006379764354, guid: 67e280978d3d05f4d8b25db002db1337,
         type: 3}
       propertyPath: OnMoventExit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StopMovment
+      value: StartMovment
       objectReference: {fileID: 0}
     - target: {fileID: 7654636006379764354, guid: 67e280978d3d05f4d8b25db002db1337,
         type: 3}
       propertyPath: OnMoventEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartMovment
+      value: StopMovment
       objectReference: {fileID: 0}
     - target: {fileID: 7654636006379764354, guid: 67e280978d3d05f4d8b25db002db1337,
         type: 3}
