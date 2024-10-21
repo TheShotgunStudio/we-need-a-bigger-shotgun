@@ -7,7 +7,8 @@ using UnityEngine;
 public class ShootingEnemy : BasicEnemy
 {
     public GameObject Bullet;
-    public float AttackSpeed = 0.5f;
+     public float BulletSpeed = 25f;
+    public float TimeBetweenBullets = 0.5f;
 
 
     /// <summary>
@@ -16,7 +17,6 @@ public class ShootingEnemy : BasicEnemy
     /// </summary>
     public void StartMovment()
     {
-        Debug.Log("movenent entering");
         base.Resetspeed(); // Reset base behavior
     }
 
@@ -26,7 +26,6 @@ public class ShootingEnemy : BasicEnemy
     /// </summary>
     public void StopMovment()
     {
-        Debug.Log("movenent exit");
         Agent.speed = 0;
         Agent.velocity = Vector3.zero;
     }
@@ -37,8 +36,7 @@ public class ShootingEnemy : BasicEnemy
     /// </summary>
     public void StartShooting()
     {
-        Debug.Log("shooting enter");
-        InvokeRepeating("Shoot", AttackSpeed, AttackSpeed);
+        InvokeRepeating("Shoot", TimeBetweenBullets, TimeBetweenBullets);
     }
 
     /// <summary>
@@ -47,7 +45,6 @@ public class ShootingEnemy : BasicEnemy
     /// </summary>
     public void StopShooting()
     {
-        Debug.Log("shooting exit");
         CancelInvoke("Shoot");
     }
 
@@ -59,7 +56,7 @@ public class ShootingEnemy : BasicEnemy
         transform.LookAt(Player.transform);
         GameObject shootBullet = Instantiate(Bullet, new Vector3(0, 0.5f, 0.7f), Quaternion.Euler(0, -90, 0));
         shootBullet.transform.SetParent(this.transform, false);
-        shootBullet.GetComponent<Rigidbody>().velocity = transform.forward * 25f;
+        shootBullet.GetComponent<Rigidbody>().velocity = transform.forward * BulletSpeed;
         Destroy(shootBullet, 3f);
     }
 }
