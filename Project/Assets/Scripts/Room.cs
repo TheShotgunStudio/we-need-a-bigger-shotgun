@@ -5,16 +5,26 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     // Create an Enemy List with all active enemies in the room
-    // public List<Enemy> enemies = new List<Enemy>()
+    // public List<Enemy> Enemies = new();
+    public List<GameObject> Enemies = new();
     public List<Door> Doors;
     private bool _roomCleared = false;
 
+    private void Start()
+    {
+        OpenDoors();
+
+        foreach (GameObject enemy in Enemies)
+        {
+            enemy.SetActive(false);
+        }
+    }
+
     private void Update()
     {
-        if (_roomCleared) return; 
-        
-        // If all enemies in the room have been defeated open the doors
-        RoomCompleted();
+        if (_roomCleared) return;
+
+        if (AllEnemiesDefeated()) RoomCompleted();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,8 +34,29 @@ public class Room : MonoBehaviour
         if (other.TryGetComponent(out PlayerController player))
         {
             CloseDoors();
-            // Spawn enemies
+            SpawnEnemies();
         }
+    }
+
+    private void SpawnEnemies()
+    {
+        foreach (GameObject enemy in Enemies)
+        {
+            enemy.SetActive(true);
+        }
+    }
+
+    private bool AllEnemiesDefeated()
+    {
+        foreach (GameObject enemy in Enemies)
+        {
+            if (enemy != null)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private void RoomCompleted()
