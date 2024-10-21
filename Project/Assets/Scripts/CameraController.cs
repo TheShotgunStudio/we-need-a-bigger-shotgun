@@ -8,6 +8,7 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(CinemachineVirtualCamera))]
 public class CameraController : MonoBehaviour
 {
     [HideInInspector]
@@ -15,20 +16,45 @@ public class CameraController : MonoBehaviour
     [HideInInspector]
     public CinemachineVirtualCamera VirtualCamera;
 
-    public Vector2 Look;
+    /// <summary>
+    /// The vertical camera sensitivity
+    /// </summary>
+    [Range(0.0F, 2.0F)]
+    public float SensitivityY = 0.5F;
+
+    /// <summary>
+    /// The horizontal camera sensitivity
+    /// </summary>
+    [Range(0.0F, 2.0F)]
+    public float SensitivityX = 0.8F;
+
+    /// <summary>
+    /// General camera sensitivity
+    /// </summary>
+    [Range(0.0F, 2.0F)]
+    public float GeneralCameraSensitivity = 1.0F;
+
+    /// <summary>
+    /// Flips the camera movement horizontally
+    /// </summary>
+    public bool InvertCameraX;
+
+    /// <summary>
+    /// Flips the camera movement vertically
+    /// </summary>
+    public bool InvertCameraY;
+
+    private Vector2 _look;
 
     void OnLook(InputValue value)
     {
-        Look = value.Get<Vector2>();
+        _look = value.Get<Vector2>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        if (!TryGetComponent<CinemachineVirtualCamera>(out VirtualCamera))
-        {
-            throw new NullReferenceException("CameraController did not find CinemachineVirtualCamera.");
-        }
+        VirtualCamera = GetComponent<CinemachineVirtualCamera>();
         if (VirtualCamera.Follow == null)
         {
             throw new NullReferenceException("VirtualCamera does not have Follow Target set.");
@@ -39,43 +65,58 @@ public class CameraController : MonoBehaviour
 
     public void OnUpdate()
     {
-        var angle = CameraFollowTarget.transform.localEulerAngles.x;
+        RotateCamera(_look);
+    }
 
-        float maxY = 280.0F;
-        float minY = 80.0F;
+    /// <summary>
+    /// Rotates the camera based on the input received in the look vector
+    /// </summary>
+    /// <param name="look">A vector describing a change in mouse movement since the last frame</param>
+    public void RotateCamera(Vector2 look)
+    {
+        float angleX = CameraFollowTarget.transform.localEulerAngles.x;
 
-        //Rotate the Follow Target transform based on the input
-        // Factor decreases the degree to which the input X affects the rotation, this prevents insane rotation around the Y axis
+        // Maximum down and up rotation respectively
+        float minY = 275.0F;
+        float maxY = 80.0F;
+        float anglePadding = 10.0F;
+
+        // Factor decreases the X sensitivity as the camera approaches the limit of vertical direction
+        // This prevents insane rotation around the Y axis when looking straight up or down
         float factor;
-        if (angle > 180)
+        if (angleX > 180)
         {
-            factor = Mathf.Cos((angle - 360) / -(360 - maxY - 10) * 0.5F * Mathf.PI);
-            CameraFollowTarget.transform.rotation *= Quaternion.AngleAxis(Look.x * 0.8F * factor, Vector3.up);
-        } else
-        {
-            factor = Mathf.Cos((angle) / -(minY + 10.0F) * 0.5F * Mathf.PI);
-            CameraFollowTarget.transform.rotation *= Quaternion.AngleAxis(Look.x * 0.8F * factor, Vector3.up);
+            factor = Mathf.Cos((angleX - 360) / -(360 - minY - anglePadding) * 0.5F * Mathf.PI);
         }
+        else
+        {
+            factor = Mathf.Cos((angleX) / -(maxY + anglePadding) * 0.5F * Mathf.PI);
+        }
+
+        // Rotate the Follow Target transform around the X axis based on the input
+        float angleChange = look.x * SensitivityX * GeneralCameraSensitivity * (InvertCameraX ? -1.0F : 1.0F) * factor;
+        CameraFollowTarget.transform.rotation *= Quaternion.AngleAxis(angleChange, Vector3.up);
 
         // Rotate around the Y axis
-        CameraFollowTarget.transform.rotation *= Quaternion.AngleAxis(Look.y * 0.5F, Vector3.right);
+        angleChange = look.y * SensitivityY * GeneralCameraSensitivity * (InvertCameraY ? 1.0F : -1.0F);
+        CameraFollowTarget.transform.rotation *= Quaternion.AngleAxis(angleChange, Vector3.right);
 
-        var angles = CameraFollowTarget.transform.localEulerAngles;
-        angles.z = 0;
-
-        angle = CameraFollowTarget.transform.localEulerAngles.x;
+        // Update angles with new rotation
+        angleX = CameraFollowTarget.transform.localEulerAngles.x;
+        Vector3 localEulerAngles = CameraFollowTarget.transform.localEulerAngles;
+        localEulerAngles.z = 0;
 
         //Clamp the Up/Down rotation
-        if (angle > 180 && angle < maxY)
+        if (angleX > 180 && angleX < minY)
         {
-            angles.x = maxY;
+            localEulerAngles.x = minY;
         }
-        else if (angle < 180 && angle > minY)
+        else if (angleX < 180 && angleX > maxY)
         {
-            angles.x = minY;
+            localEulerAngles.x = maxY;
         }
-        
+
         // Rotate around the X axis
-        CameraFollowTarget.transform.localEulerAngles = angles;
+        CameraFollowTarget.transform.localEulerAngles = localEulerAngles;
     }
 }
