@@ -7,7 +7,5 @@ using UnityEngine;
 /// </summary>
 public static class PlayerData
 {
-    public static float Speed = 6.0F;
-    public static float Acceleration = 1.0F;
-    public static float TurnTime = 0.1F;
+    public static PlayerStats Stats = new PlayerStats();
 }

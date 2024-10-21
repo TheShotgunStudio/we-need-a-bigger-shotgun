@@ -44,14 +44,14 @@ public class MoveState : ControlState
         if (_playerInputHandler.CurrentInputDirection.magnitude > 0.01)
         {
             // Gradually rotate the player character to face that direction
-            float angle = Mathf.SmoothDampAngle(_playerObject.transform.eulerAngles.y, _playerInputHandler.CurrentTargetAngle, ref _turnSmoothVelocity, PlayerData.TurnTime);
+            float angle = Mathf.SmoothDampAngle(_playerObject.transform.eulerAngles.y, _playerInputHandler.CurrentTargetAngle, ref _turnSmoothVelocity, PlayerData.Stats.TurnTime);
             _playerObject.transform.rotation = Quaternion.Euler(0F, angle, 0F);
 
             // Holy cow, Batman, this is scuffed!
             // I have no idea why something this convoluted produces remotely good results, but hey if it works, it works
             _playerRigidbody.velocity = _playerRigidbody.velocity.magnitude * _playerInputHandler.CurrentMovementDirection;
-            _playerRigidbody.velocity += _playerInputHandler.CurrentMovementDirection * PlayerData.Speed * PlayerData.Acceleration * Time.deltaTime * 4.0F;
-            _playerRigidbody.velocity = Vector3.ClampMagnitude(_playerRigidbody.velocity, PlayerData.Speed);
+            _playerRigidbody.velocity += _playerInputHandler.CurrentMovementDirection * PlayerData.Stats.Speed * PlayerData.Stats.Acceleration * Time.deltaTime * 4.0F;
+            _playerRigidbody.velocity = Vector3.ClampMagnitude(_playerRigidbody.velocity, PlayerData.Stats.Speed);
 
             // Reintroduce the Y component to the velocity
             _playerRigidbody.velocity += new Vector3(0F, y, 0F);
@@ -66,7 +66,7 @@ public class MoveState : ControlState
             } else
             {
                 // Apply insane drag to the movement
-                _playerRigidbody.velocity -= _playerRigidbody.velocity.normalized * Time.deltaTime * PlayerData.Acceleration * 30F;
+                _playerRigidbody.velocity -= _playerRigidbody.velocity.normalized * Time.deltaTime * PlayerData.Stats.Acceleration * 30F;
 
                 // Reintroduce the Y component to the velocity
                 _playerRigidbody.velocity = new Vector3(_playerRigidbody.velocity.x, y, _playerRigidbody.velocity.z);
