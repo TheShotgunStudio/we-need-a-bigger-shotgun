@@ -80,17 +80,18 @@ public class CameraController : MonoBehaviour
         // Maximum down and up rotation respectively
         float minY = 275.0F;
         float maxY = 80.0F;
+        float anglePadding = 10.0F;
 
         // Factor decreases the X sensitivity as the camera approaches the limit of vertical direction
         // This prevents insane rotation around the Y axis when looking straight up or down
         float factor;
         if (angleX > 180)
         {
-            factor = Mathf.Cos((angleX - 360) / -(360 - minY - 10) * 0.5F * Mathf.PI);
+            factor = Mathf.Cos((angleX - 360) / -(360 - minY - anglePadding) * 0.5F * Mathf.PI);
         }
         else
         {
-            factor = Mathf.Cos((angleX) / -(maxY + 10.0F) * 0.5F * Mathf.PI);
+            factor = Mathf.Cos((angleX) / -(maxY + anglePadding) * 0.5F * Mathf.PI);
         }
 
         // Rotate the Follow Target transform around the X axis based on the input
