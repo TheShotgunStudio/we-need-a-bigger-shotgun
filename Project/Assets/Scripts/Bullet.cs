@@ -6,7 +6,9 @@ public class Bullet : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {        
-        if (other.CompareTag("Player") || other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Wall"))
+        if (other.CompareTag("Player") 
+        || other.gameObject.CompareTag("Ground") 
+        || other.gameObject.CompareTag("Wall"))
         {
             Destroy(this.gameObject);
         }

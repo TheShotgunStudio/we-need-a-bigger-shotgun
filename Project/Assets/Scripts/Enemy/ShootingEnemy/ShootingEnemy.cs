@@ -7,7 +7,7 @@ using UnityEngine;
 public class ShootingEnemy : BasicEnemy
 {
     public GameObject Bullet;
-     public float BulletSpeed = 25f;
+    public float BulletSpeed = 25f;
     public float TimeBetweenBullets = 0.5f;
 
 
@@ -57,6 +57,6 @@ public class ShootingEnemy : BasicEnemy
         GameObject shootBullet = Instantiate(Bullet, new Vector3(0, 0.5f, 0.7f), Quaternion.Euler(0, -90, 0));
         shootBullet.transform.SetParent(this.transform, false);
         shootBullet.GetComponent<Rigidbody>().velocity = transform.forward * BulletSpeed;
-        Destroy(shootBullet, 3f);
+        Destroy(shootBullet, 3f);//this has to change, this is only for the prototype
     }
 }
