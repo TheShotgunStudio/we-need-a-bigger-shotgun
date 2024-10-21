@@ -2,36 +2,29 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Mathematics;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
-{
-    [HideInInspector]
-    public Rigidbody Rigidbody;
+{   
+    public Transform cameraFollowTarget;
+    public Transform mainCamera;   
+    public Transform playerModel;
+    public Transform playerSpine;
     [SerializeField]
     private PlayerStats _baseStats;
     [HideInInspector]
     public PlayerStats Stats;
-    public GameObject CameraFollowTarget;
 
     private void Awake()
     {
-        if (!TryGetComponent(out Rigidbody))
-        {
-            throw new NullReferenceException("PlayerController did not find Rigidbody component.");
-        }
-        if (CameraFollowTarget == null)
-        {
-            throw new NullReferenceException("PlayerController does not have CameraFollowTarget set.");
-        }
-
         Stats = (PlayerStats)_baseStats.Clone();
     }
-
-    public void OnAttack(InputValue value)
-    {
-        // Set the rigidbody velocity opposite the camera directions
-        Rigidbody.velocity -= CameraFollowTarget.transform.forward * 3.0F;
+    
+    void Update(){
+        playerModel.transform.rotation = Quaternion.Euler(0,  mainCamera.transform.rotation.eulerAngles.y, 0);
+        Quaternion lookRotation = Quaternion.LookRotation((mainCamera.position + mainCamera.forward * 10.0f) - playerSpine.position);
+        playerSpine.rotation = math.slerp(playerSpine.rotation, lookRotation, 0.9f);
     }
 }
