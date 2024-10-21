@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         Stats = (PlayerStats)_baseStats.Clone();
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
     }
     
     void Update(){

@@ -8,5 +8,5 @@ public class PlayerStats : Stats
     public int CritRate;
     public float CritDamage = 1.5f;
     public float KnockbackForce;
-    public float speed = 3.0f;
+    public float MoveSpeed = 3.0f; 
 }
