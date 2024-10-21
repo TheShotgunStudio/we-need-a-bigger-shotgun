@@ -41,7 +41,7 @@ public class Room : MonoBehaviour
         foreach (Door door in Doors)
         {
             // door.OpenDoor();
-            door.gameObject.SetActive(true);
+            door.gameObject.SetActive(false);
         }
     }
 
@@ -50,7 +50,7 @@ public class Room : MonoBehaviour
         foreach (Door door in Doors)
         {
             // door.CloseDoor();
-            door.gameObject.SetActive(false);
+            door.gameObject.SetActive(true);
         }
     }
 }
