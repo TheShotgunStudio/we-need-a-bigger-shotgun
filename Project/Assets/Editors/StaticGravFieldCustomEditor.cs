@@ -12,7 +12,6 @@ public class StaticGravFieldCustomEditor : Editor
 {
     SerializedProperty Mode;
     SerializedProperty Direction;
-    private float opacity = 0.2f;
     private void OnEnable()
     {
         Mode = serializedObject.FindProperty(nameof(StaticGravityField.Mode));
@@ -23,7 +22,7 @@ public class StaticGravFieldCustomEditor : Editor
         StaticGravityField gravityField = (StaticGravityField)target;
         EditorGUILayout.PropertyField(Mode);
 
-        if (gravityField.Mode == GravityMode.Cardinal)
+        if (gravityField.Mode == GravityMode.CARDINAL)
         {
             EditorGUILayout.PropertyField(Direction);
             gravityField.transform.rotation = Quaternion.Euler(Vector3.zero);

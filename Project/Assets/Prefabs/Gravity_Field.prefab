@@ -120,7 +120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mode: 0
-  FacingDirection: 4
+  priority: 0
+  GravityFacingDirection: 5
   GravityStrength: 9.80665
 --- !u!114 &1008753213116494363
 MonoBehaviour:
