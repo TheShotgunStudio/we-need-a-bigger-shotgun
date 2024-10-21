@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Animator animator;
+
+    private void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CloseDoor()
     {
+        if (animator == null) return;
         
+        animator.SetTrigger("Close");
+    }
+
+    public void OpenDoor()
+    {
+        if (animator == null) return;
+
+        animator.SetTrigger("Open");
     }
 }
