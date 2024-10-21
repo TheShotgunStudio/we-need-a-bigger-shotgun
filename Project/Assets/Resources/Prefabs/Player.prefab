@@ -641,7 +641,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5363915185667916729}
-  - component: {fileID: 2837784180231108399}
   - component: {fileID: 7922734016075306319}
   - component: {fileID: 4141369257516513313}
   m_Layer: 0
@@ -668,23 +667,6 @@ Transform:
   - {fileID: 2812005528466689498}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2837784180231108399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3355232733475176219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 951440af688ab9a4784248c09c2fb7b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MainCamera: {fileID: 0}
-  PlayerModel: {fileID: 2812005528466689498}
-  PlayerSpine: {fileID: 5474479405501035403}
-  _baseStats: {fileID: 11400000, guid: b1dec7f9c24582a4d8d2c2dff8237242, type: 2}
-  Stats: {fileID: 0}
 --- !u!114 &7922734016075306319
 MonoBehaviour:
   m_ObjectHideFlags: 0
