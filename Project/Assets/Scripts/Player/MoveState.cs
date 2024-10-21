@@ -13,25 +13,27 @@ public class MoveState : ControlState, IAttackHandler
     private Rigidbody _playerRigidbody;
     private PlayerInputHandler _playerInputHandler;
     private CameraController _cameraController;
+    private PlayerStats _playerStats;
 
     private float _turnSmoothVelocity;
 
     public Dictionary<string, AbstractState> Neighbors { get; private set; } = new Dictionary<string, AbstractState>();
     public FiniteStateMachine.StateSetter StateSetter { get; private set; }
 
-    public MoveState(FiniteStateMachine.StateSetter stateSetter, PlayerComponentManager playerComponentManager, CameraController cameraController)
+    public MoveState(FiniteStateMachine.StateSetter stateSetter, PlayerComponentManager playerComponentManager, CameraController cameraController, PlayerStats playerStats)
     {
         this._playerComponentManager = playerComponentManager;
         this._playerObject = playerComponentManager.gameObject;
         this._playerRigidbody = playerComponentManager.Rigidbody;
         this._playerInputHandler = playerComponentManager.InputHandler;
         this._cameraController = cameraController;
+        this._playerStats = playerStats;
         this.StateSetter = stateSetter;
     }
 
     public object Clone()
     {
-        MoveState moveState = new MoveState(StateSetter, _playerComponentManager, _cameraController);
+        MoveState moveState = new MoveState(StateSetter, _playerComponentManager, _cameraController, _playerStats);
         moveState._turnSmoothVelocity = _turnSmoothVelocity;
 
         return moveState;
@@ -50,14 +52,14 @@ public class MoveState : ControlState, IAttackHandler
         if (_playerInputHandler.CurrentInputDirection.magnitude > 0.01)
         {
             // Gradually rotate the player character to face that direction
-            float angle = Mathf.SmoothDampAngle(_playerObject.transform.eulerAngles.y, _playerInputHandler.CurrentTargetAngle, ref _turnSmoothVelocity, PlayerData.Stats.TurnTime);
+            float angle = Mathf.SmoothDampAngle(_playerObject.transform.eulerAngles.y, _playerInputHandler.CurrentTargetAngle, ref _turnSmoothVelocity, _playerStats.TurnTime);
             _playerObject.transform.rotation = Quaternion.Euler(0F, angle, 0F);
 
             // Holy cow, Batman, this is scuffed!
             // I have no idea why something this convoluted produces remotely good results, but hey if it works, it works
             _playerRigidbody.velocity = _playerRigidbody.velocity.magnitude * _playerInputHandler.CurrentMovementDirection;
-            _playerRigidbody.velocity += _playerInputHandler.CurrentMovementDirection * PlayerData.Stats.Speed * PlayerData.Stats.Acceleration * Time.deltaTime * 4.0F;
-            _playerRigidbody.velocity = Vector3.ClampMagnitude(_playerRigidbody.velocity, PlayerData.Stats.Speed);
+            _playerRigidbody.velocity += _playerInputHandler.CurrentMovementDirection * _playerStats.Speed * _playerStats.Acceleration * Time.deltaTime * 4.0F;
+            _playerRigidbody.velocity = Vector3.ClampMagnitude(_playerRigidbody.velocity, _playerStats.Speed);
 
             // Reintroduce the Y component to the velocity
             _playerRigidbody.velocity += new Vector3(0F, y, 0F);
@@ -72,7 +74,7 @@ public class MoveState : ControlState, IAttackHandler
             } else
             {
                 // Apply insane drag to the movement
-                _playerRigidbody.velocity -= _playerRigidbody.velocity.normalized * Time.deltaTime * PlayerData.Stats.Acceleration * 30F;
+                _playerRigidbody.velocity -= _playerRigidbody.velocity.normalized * Time.deltaTime * _playerStats.Acceleration * 30F;
 
                 // Reintroduce the Y component to the velocity
                 _playerRigidbody.velocity = new Vector3(_playerRigidbody.velocity.x, y, _playerRigidbody.velocity.z);

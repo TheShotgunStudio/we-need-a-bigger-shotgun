@@ -11,12 +11,13 @@ using UnityEngine.InputSystem;
 /// Main player script. Functions as a finite state machine to delegate responsibilities.
 /// </summary>
 [RequireComponent(typeof(PlayerComponentManager))]
-public class PlayerController2 : MonoBehaviour, FiniteStateMachine, IAttackHandler
+public class PlayerController : MonoBehaviour, FiniteStateMachine, IAttackHandler
 {
     public CameraController CameraController;
     public Dictionary<string, AbstractState> States { get; private set; }
     public AbstractState CurrentState { get; private set; }
     public PlayerComponentManager PlayerComponentManager { get; private set; }
+    public PlayerStats Stats { get; private set; }
 
     /// <summary>
     /// A list of layers this player controller will treat as ground/terrain
@@ -42,6 +43,11 @@ public class PlayerController2 : MonoBehaviour, FiniteStateMachine, IAttackHandl
         {
             throw new NullReferenceException("CameraController not set for PlayerController.");
         }
+        if (Stats == null)
+        {
+            Stats = new PlayerStats();
+        }
+
         PlayerComponentManager = GetComponent<PlayerComponentManager>();
         InitializeStates();
 
@@ -55,7 +61,7 @@ public class PlayerController2 : MonoBehaviour, FiniteStateMachine, IAttackHandl
         // Initialize state dictionary
         States = new Dictionary<string, AbstractState>()
         {
-            { "Movable", new MoveState(stateSetter, PlayerComponentManager, CameraController) }
+            { "Movable", new MoveState(stateSetter, PlayerComponentManager, CameraController, Stats) }
         };
 
         // Activate state machine by setting the default state
