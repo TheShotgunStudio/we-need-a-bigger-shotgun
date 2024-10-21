@@ -13,6 +13,8 @@ using UnityEngine.InputSystem.LowLevel;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerInputHandler : MonoBehaviour
 {
+    public delegate void InputDelegate(InputValue value);
+
     /// <summary>
     /// Current direction of input in world space
     /// </summary>
@@ -34,6 +36,11 @@ public class PlayerInputHandler : MonoBehaviour
     public bool CanMoveCamera { get; set; }
 
     /// <summary>
+    /// List of delegates to be called when an input is received
+    /// </summary>
+    public List<InputDelegate> OnMoveDelegates { get; private set; } = new List<InputDelegate>();
+
+    /// <summary>
     /// Called when a movement direction is held down
     /// </summary>
     /// <param name="value">Generic input value</param>
@@ -45,6 +52,14 @@ public class PlayerInputHandler : MonoBehaviour
         // Convert it to a vector3
         CurrentInputDirection = GetInputDirection(input);
 
+        foreach (InputDelegate inputDelegate in OnMoveDelegates)
+        {
+            inputDelegate.Invoke(value);
+        }
+    }
+
+    public void Update()
+    {
         // If a direction is being held down
         if (CurrentInputDirection.magnitude > 0.01F)
         {
@@ -59,6 +74,23 @@ public class PlayerInputHandler : MonoBehaviour
 
         // And calculate the resulting target angle 
         CurrentTargetAngle = Mathf.Atan2(CurrentInputDirection.x, CurrentInputDirection.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
+    }
+
+    /// <summary>
+    /// List of delegates to be called when an input is received
+    /// </summary>
+    public List<InputDelegate> OnAttackDelegates { get; private set; } = new List<InputDelegate>();
+
+    /// <summary>
+    /// Called when the player presses the attack button
+    /// </summary>
+    /// <param name="value">Generic input value</param>
+    public void OnAttack(InputValue value)
+    {
+        foreach (InputDelegate inputDelegate in OnAttackDelegates)
+        {
+            inputDelegate.Invoke(value);
+        }
     }
 
     /// <summary>

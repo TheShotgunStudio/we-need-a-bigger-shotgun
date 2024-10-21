@@ -5,13 +5,15 @@ using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Main player script. Functions as a finite state machine to delegate responsibilities.
 /// </summary>
 [RequireComponent(typeof(PlayerComponentManager))]
-public class PlayerController2 : MonoBehaviour, FiniteStateMachine
+public class PlayerController2 : MonoBehaviour, FiniteStateMachine, IAttackHandler
 {
+    public CameraController CameraController;
     public Dictionary<string, AbstractState> States { get; private set; }
     public AbstractState CurrentState { get; private set; }
     public PlayerComponentManager PlayerComponentManager { get; private set; }
@@ -36,8 +38,14 @@ public class PlayerController2 : MonoBehaviour, FiniteStateMachine
 
     void Start()
     {
+        if (CameraController == null)
+        {
+            throw new NullReferenceException("CameraController not set for PlayerController.");
+        }
         PlayerComponentManager = GetComponent<PlayerComponentManager>();
         InitializeStates();
+
+        PlayerComponentManager.InputHandler.OnAttackDelegates.Add((value) => OnAttackInput(value));
     }
 
     public void InitializeStates()
@@ -47,7 +55,7 @@ public class PlayerController2 : MonoBehaviour, FiniteStateMachine
         // Initialize state dictionary
         States = new Dictionary<string, AbstractState>()
         {
-            { "Movable", new MoveState(stateSetter, PlayerComponentManager) }
+            { "Movable", new MoveState(stateSetter, PlayerComponentManager, CameraController) }
         };
 
         // Activate state machine by setting the default state
@@ -64,5 +72,11 @@ public class PlayerController2 : MonoBehaviour, FiniteStateMachine
     void FixedUpdate()
     {
         CurrentState.OnStateFixedProcessing();
+    }
+
+    public void OnAttackInput(InputValue value)
+    {
+        if (CurrentState is not IAttackHandler) return;
+        ((IAttackHandler)CurrentState).OnAttackInput(value);
     }
 }

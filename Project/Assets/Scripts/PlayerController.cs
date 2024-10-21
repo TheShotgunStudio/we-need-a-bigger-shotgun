@@ -28,10 +28,4 @@ public class PlayerController : MonoBehaviour
 
         Stats = (PlayerStats)_baseStats.Clone();
     }
-
-    public void OnAttack(InputValue value)
-    {
-        // Set the rigidbody velocity opposite the camera directions
-        Rigidbody.velocity -= CameraFollowTarget.transform.forward * 3.0F;
-    }
 }

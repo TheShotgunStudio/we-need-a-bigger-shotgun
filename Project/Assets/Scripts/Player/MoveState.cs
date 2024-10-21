@@ -1,42 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// In this state the player can be moved around by holding a direction.
 /// </summary>
-public class MoveState : ControlState
+public class MoveState : ControlState, IAttackHandler
 {
     private PlayerComponentManager _playerComponentManager;
     private GameObject _playerObject;
     private Rigidbody _playerRigidbody;
     private PlayerInputHandler _playerInputHandler;
+    private CameraController _cameraController;
 
     private float _turnSmoothVelocity;
 
     public Dictionary<string, AbstractState> Neighbors { get; private set; } = new Dictionary<string, AbstractState>();
     public FiniteStateMachine.StateSetter StateSetter { get; private set; }
 
-    public MoveState(FiniteStateMachine.StateSetter stateSetter, PlayerComponentManager playerComponentManager)
+    public MoveState(FiniteStateMachine.StateSetter stateSetter, PlayerComponentManager playerComponentManager, CameraController cameraController)
     {
         this._playerComponentManager = playerComponentManager;
         this._playerObject = playerComponentManager.gameObject;
         this._playerRigidbody = playerComponentManager.Rigidbody;
         this._playerInputHandler = playerComponentManager.InputHandler;
+        this._cameraController = cameraController;
         this.StateSetter = stateSetter;
     }
 
     public object Clone()
     {
-        MoveState moveState = new MoveState(StateSetter, _playerComponentManager);
+        MoveState moveState = new MoveState(StateSetter, _playerComponentManager, _cameraController);
         moveState._turnSmoothVelocity = _turnSmoothVelocity;
 
         return moveState;
     }
 
-    // Called every frame if this is the current state of the FSM
+    // Called a fixed amount of times per second if this is the current state of the FSM
     public void OnStateFixedProcessing()
     {
+        // Handle camera
+        _cameraController.CameraFollowTarget.transform.position = _playerObject.transform.position;
+
         // Preserve the y component
         float y = _playerRigidbody.velocity.y;
 
@@ -72,5 +78,17 @@ public class MoveState : ControlState
                 _playerRigidbody.velocity = new Vector3(_playerRigidbody.velocity.x, y, _playerRigidbody.velocity.z);
             }
         }
+    }
+
+    public void OnStateProcessing()
+    {
+        if (_cameraController == null) return;
+        _cameraController.OnUpdate();
+    }
+
+    public void OnAttackInput(InputValue value)
+    {
+        // Set the rigidbody velocity opposite the camera directions
+        _playerRigidbody.velocity -= _cameraController.CameraFollowTarget.transform.forward * 3.0F;
     }
 }
