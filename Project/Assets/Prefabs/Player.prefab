@@ -698,13 +698,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0dc729aa940a214abf136add4c28dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionPosition: {fileID: 2545557389485610500}
-  playerRigidbody: {fileID: 2812005528466689498}
-  explosionForce: 1000
-  explosionRadius: 3
-  reloadTime: 2
-  shotgunShot: {fileID: 8300000, guid: dc0b8b10e23170b47bc9290424f25f96, type: 3}
-  shotgunReload: {fileID: 8300000, guid: 1b61701c74ace6e47b930653159fe9b7, type: 3}
+  ExplosionPosition: {fileID: 2545557389485610500}
+  PlayerRigidbody: {fileID: 2812005528466689498}
+  ExplosionForce: 1000
+  ExplosionRadius: 3
+  ReloadTime: 2
+  ShotgunShot: {fileID: 8300000, guid: dc0b8b10e23170b47bc9290424f25f96, type: 3}
+  ShotgunReload: {fileID: 8300000, guid: 1b61701c74ace6e47b930653159fe9b7, type: 3}
 --- !u!114 &4141369257516513313
 MonoBehaviour:
   m_ObjectHideFlags: 0
