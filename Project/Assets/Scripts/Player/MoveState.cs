@@ -17,10 +17,10 @@ public class MoveState : ControlState, IAttackHandler
 
     private float _turnSmoothVelocity;
 
-    public Dictionary<string, AbstractState> Neighbors { get; private set; } = new Dictionary<string, AbstractState>();
-    public FiniteStateMachine.StateSetter StateSetter { get; private set; }
+    public Dictionary<string, IAbstractState> Neighbors { get; private set; } = new Dictionary<string, IAbstractState>();
+    public IFiniteStateMachine.StateSetter StateSetter { get; private set; }
 
-    public MoveState(FiniteStateMachine.StateSetter stateSetter, PlayerComponentManager playerComponentManager, CameraController cameraController, PlayerStats playerStats)
+    public MoveState(IFiniteStateMachine.StateSetter stateSetter, PlayerComponentManager playerComponentManager, CameraController cameraController, PlayerStats playerStats)
     {
         this._playerComponentManager = playerComponentManager;
         this._playerObject = playerComponentManager.gameObject;

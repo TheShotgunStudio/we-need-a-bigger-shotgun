@@ -11,11 +11,11 @@ using UnityEngine.InputSystem;
 /// Main player script. Functions as a finite state machine to delegate responsibilities.
 /// </summary>
 [RequireComponent(typeof(PlayerComponentManager))]
-public class PlayerController : MonoBehaviour, FiniteStateMachine, IAttackHandler
+public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandler
 {
     public CameraController CameraController;
-    public Dictionary<string, AbstractState> States { get; private set; }
-    public AbstractState CurrentState { get; private set; }
+    public Dictionary<string, IAbstractState> States { get; private set; }
+    public IAbstractState CurrentState { get; private set; }
     public PlayerComponentManager PlayerComponentManager { get; private set; }
     public PlayerStats Stats { get; private set; }
 
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour, FiniteStateMachine, IAttackHandle
     /// </summary>
     public LayerMask GroundLayerMask;
 
-    public void SetState(AbstractState state)
+    public void SetState(IAbstractState state)
     {
         if (state == null) return;
         if (CurrentState != null) CurrentState.OnStateExit();
@@ -56,10 +56,10 @@ public class PlayerController : MonoBehaviour, FiniteStateMachine, IAttackHandle
 
     public void InitializeStates()
     {
-        FiniteStateMachine.StateSetter stateSetter = (state) => CurrentState = state;
+        IFiniteStateMachine.StateSetter stateSetter = (state) => CurrentState = state;
 
         // Initialize state dictionary
-        States = new Dictionary<string, AbstractState>()
+        States = new Dictionary<string, IAbstractState>()
         {
             { "Movable", new MoveState(stateSetter, PlayerComponentManager, CameraController, Stats) }
         };

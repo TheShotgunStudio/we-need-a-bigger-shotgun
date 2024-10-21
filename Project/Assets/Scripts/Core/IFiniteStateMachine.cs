@@ -2,23 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface FiniteStateMachine
+public interface IFiniteStateMachine
 {
     /// <summary>
     /// A delegate that can be passed to a child ControlState to allow it to change to different states itself.
     /// </summary>
     /// <param name="state">The state to change to</param>
-    public delegate void StateSetter(AbstractState state);
+    public delegate void StateSetter(IAbstractState state);
 
     /// <summary>
     /// A dictionary containing all possible states in the FSM.
     /// </summary>
-    public Dictionary<string, AbstractState> States { get; }
+    public Dictionary<string, IAbstractState> States { get; }
 
     /// <summary>
     /// The current state the FSM is in.
     /// </summary>
-    AbstractState CurrentState { get; }
+    IAbstractState CurrentState { get; }
 
     /// <summary>
     /// Should handle initialization of the states dictionary and set the current state to an initial value.
@@ -32,7 +32,7 @@ public interface FiniteStateMachine
     /// Optionally you can also add a check to see if the provided state is within our dictionary.
     /// </remarks>
     /// <param name="state">The state to change to.</param>
-    void SetState(AbstractState state);
+    void SetState(IAbstractState state);
 
     /// <summary>
     /// Should set the state by using the key that state has in the states dictionary.

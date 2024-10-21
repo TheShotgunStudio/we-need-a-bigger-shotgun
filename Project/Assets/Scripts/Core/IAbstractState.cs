@@ -3,7 +3,7 @@ using System;
 /// <summary>
 /// An abstract state for use in a state machine
 /// </summary>
-public interface AbstractState : ICloneable
+public interface IAbstractState : ICloneable
 {
     /// <summary>
     /// Called when the FSM changes to this state.
