@@ -74,6 +74,8 @@ public class PlayerInputHandler : MonoBehaviour
 
         // And calculate the resulting target angle 
         CurrentTargetAngle = Mathf.Atan2(CurrentInputDirection.x, CurrentInputDirection.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
+
+        
     }
 
     /// <summary>
