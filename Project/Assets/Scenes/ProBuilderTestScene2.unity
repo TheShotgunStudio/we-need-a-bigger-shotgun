@@ -297,12 +297,6 @@ MonoBehaviour:
   volumeMultiplier: 0.01
   soundEffectObject: {fileID: 8349468522717782482, guid: 7ec8d5b8c25351641b99b6fc1f3af4d8,
     type: 3}
---- !u!4 &411038461 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5474479405501035403, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
-    type: 3}
-  m_PrefabInstance: {fileID: 222675333554054194}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &643878582
 GameObject:
   m_ObjectHideFlags: 3
@@ -8489,21 +8483,6 @@ PrefabInstance:
       propertyPath: MainCamera
       value: 
       objectReference: {fileID: 1884892309}
-    - target: {fileID: 2837784180231108399, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
-        type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 1884892309}
-    - target: {fileID: 2837784180231108399, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
-        type: 3}
-      propertyPath: PlayerModel
-      value: 
-      objectReference: {fileID: 1088594974}
-    - target: {fileID: 2837784180231108399, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
-        type: 3}
-      propertyPath: PlayerSpine
-      value: 
-      objectReference: {fileID: 411038461}
     - target: {fileID: 3355232733475176219, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
         type: 3}
       propertyPath: m_Name
@@ -8564,21 +8543,6 @@ PrefabInstance:
       propertyPath: MainCamera
       value: 
       objectReference: {fileID: 1884892309}
-    - target: {fileID: 7922734016075306319, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
-        type: 3}
-      propertyPath: RecoilForce
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7922734016075306319, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
-        type: 3}
-      propertyPath: ShotgunShot
-      value: 
-      objectReference: {fileID: 8300000, guid: c2ca2e8d6fe141a44aef6097a677e124, type: 3}
-    - target: {fileID: 7922734016075306319, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
-        type: 3}
-      propertyPath: ShotgunReload
-      value: 
-      objectReference: {fileID: 8300000, guid: 12a7442cd6df28f47a0196244edb4d9f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
