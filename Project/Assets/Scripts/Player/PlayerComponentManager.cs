@@ -7,15 +7,19 @@ using UnityEngine;
 /// Mainly used for PlayerController to pass dependencies to its state children
 /// </summary>
 [RequireComponent(typeof(PlayerInputHandler))]
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerComponentManager : MonoBehaviour
 {
     [HideInInspector]
     public PlayerInputHandler InputHandler;
+    [HideInInspector]
+    public Rigidbody Rigidbody;
     public Transform PlayerModel;
     public Transform PlayerSpine;
 
     void OnEnable()
     {
         InputHandler = GetComponent<PlayerInputHandler>();
+        Rigidbody = GetComponent<Rigidbody>();
     }
 }

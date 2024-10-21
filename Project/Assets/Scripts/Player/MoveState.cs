@@ -27,7 +27,7 @@ public class MoveState : ControlState, IAttackHandler
     {
         this._playerComponentManager = playerComponentManager;
         this._playerObject = playerComponentManager.gameObject;
-        this._playerRigidbody = playerComponentManager.PlayerModel.GetComponent<Rigidbody>();
+        this._playerRigidbody = playerComponentManager.Rigidbody;
         this._playerInputHandler = playerComponentManager.InputHandler;
         this._playerModel = playerComponentManager.PlayerModel;
         this._playerSpine = playerComponentManager.PlayerSpine; 
