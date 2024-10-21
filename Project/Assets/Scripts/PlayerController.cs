@@ -8,10 +8,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {   
-    public Transform cameraFollowTarget;
-    public Transform mainCamera;   
-    public Transform playerModel;
-    public Transform playerSpine;
+    public Transform MainCamera;   
+    public Transform PlayerModel;
+    public Transform PlayerSpine;
     [SerializeField]
     private PlayerStats _baseStats;
     [HideInInspector]
@@ -23,8 +22,8 @@ public class PlayerController : MonoBehaviour
     }
     
     void Update(){
-        playerModel.transform.rotation = Quaternion.Euler(0,  mainCamera.transform.rotation.eulerAngles.y, 0);
-        Quaternion lookRotation = Quaternion.LookRotation((mainCamera.position + mainCamera.forward * 10.0f) - playerSpine.position);
-        playerSpine.rotation = math.slerp(playerSpine.rotation, lookRotation, 0.9f);
+        PlayerModel.transform.rotation = Quaternion.Euler(0,  MainCamera.transform.rotation.eulerAngles.y, 0);
+        Quaternion lookRotation = Quaternion.LookRotation((MainCamera.position + MainCamera.forward * 10.0f) - PlayerSpine.position);
+        PlayerSpine.rotation = math.slerp(PlayerSpine.rotation, lookRotation, 0.9f);
     }
 }

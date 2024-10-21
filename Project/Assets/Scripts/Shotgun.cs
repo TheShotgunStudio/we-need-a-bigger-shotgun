@@ -6,10 +6,11 @@ using UnityEngine.VFX;
 
 public class Shotgun : MonoBehaviour
 {
+    
+    public Transform MainCamera;   
     public Transform ExplosionPosition;
     public Transform PlayerRigidbody;
-    public int ExplosionForce = 0;
-    public int ExplosionRadius = 0;
+    public int RecoilForce = 0;
     public float ReloadTime = 0.0f;
 
     public AudioClip ShotgunShot;
@@ -39,8 +40,8 @@ public class Shotgun : MonoBehaviour
     }
 
     private void Shoot(){
-            PlayerRigidbody.GetComponent<Rigidbody>().AddExplosionForce(ExplosionForce, ExplosionPosition.position, ExplosionRadius);
             _reloadTimer.Start(ReloadTime);
+            PlayerRigidbody.GetComponent<Rigidbody>().velocity -= MainCamera.transform.forward * RecoilForce;
             SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
             StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));
             SoundEffectManager.Instance.PlaySoundNoPitchDelayed(ShotgunReload, ExplosionPosition, 1.0f, 1.0f);
