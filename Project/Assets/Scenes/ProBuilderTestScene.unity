@@ -8501,7 +8501,7 @@ MonoBehaviour:
   m_TransparentLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_MinimumDistanceFromTarget: 1
+  m_MinimumDistanceFromTarget: 4
   m_AvoidObstacles: 1
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
@@ -8549,7 +8549,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 222675333554054200}
+  m_LookAt: {fileID: 1148658810}
   m_Follow: {fileID: 1148658810}
   m_Lens:
     FieldOfView: 40
@@ -8757,6 +8757,11 @@ PrefabInstance:
       propertyPath: MainCamera
       value: 
       objectReference: {fileID: 1884892309}
+    - target: {fileID: 2870273143803870756, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3192366649294542688, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
         type: 3}
       propertyPath: m_Name
@@ -8766,6 +8771,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3355232733475176219, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4141369257516513313, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
         type: 3}
@@ -9027,6 +9037,11 @@ PrefabInstance:
       propertyPath: MainCamera
       value: 
       objectReference: {fileID: 1884892309}
+    - target: {fileID: 8013592953907573236, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
+        type: 3}
+      propertyPath: offset.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8013592953907573236, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
         type: 3}
       propertyPath: playerTransform
