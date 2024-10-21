@@ -63,8 +63,7 @@ public class CameraController : MonoBehaviour
         CameraFollowTarget = VirtualCamera.Follow.gameObject;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnUpdate()
     {
         RotateCamera(_look);
     }

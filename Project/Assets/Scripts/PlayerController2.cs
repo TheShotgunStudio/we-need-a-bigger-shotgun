@@ -6,7 +6,7 @@ using Unity.Mathematics;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
-public class PlayerController : MonoBehaviour
+public class PlayerController2: MonoBehaviour
 {   
     public Transform MainCamera;   
     public Transform PlayerModel;
