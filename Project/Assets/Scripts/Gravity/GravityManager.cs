@@ -12,6 +12,7 @@ public class GravityManager : MonoBehaviour
     private void Awake()
     {
         this._rigidBody = GetComponent<Rigidbody>();
+        this._rigidBody.useGravity = false;
     }
 
     private void FixedUpdate()
