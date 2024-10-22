@@ -427,6 +427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraController: {fileID: 7416363772783567903}
+  _baseStats: {fileID: 11400000, guid: b1dec7f9c24582a4d8d2c2dff8237242, type: 2}
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 1

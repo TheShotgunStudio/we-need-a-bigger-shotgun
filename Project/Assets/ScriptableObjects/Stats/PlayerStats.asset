@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   Attack: 20
-  Speed: 5
+  Speed: 6
+  Acceleration: 1
+  TurnTime: 0.1
+  CritRate: 0
+  CritDamage: 1.5
   KnockbackForce: 5

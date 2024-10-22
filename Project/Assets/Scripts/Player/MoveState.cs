@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,8 @@ public class MoveState : ControlState, IAttackHandler
     private CameraController _cameraController;
     private PlayerStats _playerStats;
     private LayerMask _layerMask;
+    private Transform _playerModel;
+    private Transform _playerSpine;
 
     private float _turnSmoothVelocity;
     private float _playerHeight = 1.2F;
@@ -29,6 +32,8 @@ public class MoveState : ControlState, IAttackHandler
         this._playerObject = playerComponentManager.gameObject;
         this._playerRigidbody = playerComponentManager.Rigidbody;
         this._playerInputHandler = playerComponentManager.InputHandler;
+        this._playerModel = playerComponentManager.PlayerModel;
+        this._playerSpine = playerComponentManager.PlayerSpine; 
         this._cameraController = cameraController;
         this._playerStats = playerStats;
         this._layerMask = layerMask;
@@ -54,6 +59,12 @@ public class MoveState : ControlState, IAttackHandler
 
         // Preserve the y component
         float y = velocity.y;
+
+        //Move player model and its spine according to the camera
+        _playerModel.transform.rotation = Quaternion.Euler(0,  Camera.main.transform.rotation.eulerAngles.y, 0);
+        Quaternion lookRotation = Quaternion.LookRotation((Camera.main.transform.position + Camera.main.transform.forward * 10.0f) - _playerSpine.position);
+        _playerSpine.rotation = math.slerp(_playerSpine.rotation, lookRotation, 0.9f);
+
 
         // If the player is holding down a direction
         if (_playerInputHandler.CurrentInputDirection.magnitude > 0.01)
