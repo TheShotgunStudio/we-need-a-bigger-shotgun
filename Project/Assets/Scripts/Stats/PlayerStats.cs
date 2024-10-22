@@ -9,6 +9,5 @@ public class PlayerStats : Stats
     public float Acceleration = 1.0f;
     public float TurnTime = 0.1F;
     public float CritRate;
-    public float CritDamage = 1.5f;
-    public float KnockbackForce;
+    public float CritDamage;
 }

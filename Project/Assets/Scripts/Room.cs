@@ -6,6 +6,7 @@ public class Room : MonoBehaviour
 {
     // Create an Enemy List with all active enemies in the room
     // public List<Enemy> Enemies = new();
+    public UpgradeDisplay UpgradeDisplay;
     public List<GameObject> Enemies = new();
     public List<Door> Doors;
     private bool _roomCleared = false;
@@ -61,10 +62,18 @@ public class Room : MonoBehaviour
 
     private void RoomCompleted()
     {
-        // ShowUpgrades()
+        ShowUpgrades();
         OpenDoors();
 
         _roomCleared = true;
+    }
+
+    private void ShowUpgrades()
+    {
+        if (UpgradeDisplay == null) return;
+
+        UpgradeDisplay.gameObject.SetActive(true);
+        UpgradeDisplay.Initialize();
     }
 
     private void OpenDoors()

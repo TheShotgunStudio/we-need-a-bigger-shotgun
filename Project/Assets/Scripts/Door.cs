@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    private Animator animator;
+    private Animator _animator;
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
 
     public void CloseDoor()
     {
-        if (animator == null) return;
+        if (_animator == null) return;
         
-        animator.SetTrigger("Close");
+        _animator.SetTrigger("Close");
     }
 
     public void OpenDoor()
     {
-        if (animator == null) return;
+        if (_animator == null) return;
 
-        animator.SetTrigger("Open");
+        _animator.SetTrigger("Open");
     }
 }
