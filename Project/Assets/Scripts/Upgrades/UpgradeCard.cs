@@ -9,15 +9,15 @@ public class UpgradeCard : MonoBehaviour
     public TextMeshProUGUI Title;
     public Image Sprite;
     public TextMeshProUGUI Description;
-    private UpgradeData upgradeData;
+    private UpgradeData _upgradeData;
 
     public void SetCard(UpgradeData data, int count)
     {
-        upgradeData = data;
+        _upgradeData = data;
 
-        Title.text = $"{upgradeData.UpgradeName} {count}";
-        Sprite.sprite = upgradeData.Icon;
-        Description.text = upgradeData.Description;
+        Title.text = $"{_upgradeData.UpgradeName} {count}";
+        Sprite.sprite = _upgradeData.Icon;
+        Description.text = _upgradeData.Description;
     }
 
     public void HandleClick()
@@ -26,7 +26,7 @@ public class UpgradeCard : MonoBehaviour
 
         if (upgradeDisplay != null)
         {
-            upgradeDisplay.SelectUpgrade(upgradeData);
+            upgradeDisplay.SelectUpgrade(_upgradeData);
         }
     }
 }

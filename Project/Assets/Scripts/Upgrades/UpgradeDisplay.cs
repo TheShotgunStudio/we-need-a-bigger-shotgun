@@ -11,7 +11,7 @@ public class UpgradeDisplay : MonoBehaviour
     public List<UpgradeData> AllUpgrades;
     private List<UpgradeData> _availableUpgrades = new List<UpgradeData>();
     private Dictionary<UpgradeData, int> _upgradeCounts = new Dictionary<UpgradeData, int>();
-    public bool poolNeedsUpdate = true;
+    public bool PoolNeedsUpdate = true;
 
     public void Initialize()
     {
@@ -24,7 +24,7 @@ public class UpgradeDisplay : MonoBehaviour
     private void ShowUpgradeCards()
     {
         // Set the available upgrades if the pool needs an update
-        if (poolNeedsUpdate) GetAvailableUpgrades();
+        if (PoolNeedsUpdate) GetAvailableUpgrades();
 
         // Determine how many upgrade cards to display (1 to 3)
         int numUpgradesToDisplay = Mathf.Min(3, _availableUpgrades.Count);
@@ -63,7 +63,7 @@ public class UpgradeDisplay : MonoBehaviour
             _availableUpgrades.Add(upgrade);
         }
 
-        poolNeedsUpdate = false;
+        PoolNeedsUpdate = false;
     }
 
     private List<UpgradeData> GetRandomUpgrades(int count)
@@ -103,7 +103,7 @@ public class UpgradeDisplay : MonoBehaviour
         if (_upgradeCounts.ContainsKey(upgrade))
         {
             _upgradeCounts[upgrade]++;
-            if (_upgradeCounts[upgrade] >= 10) poolNeedsUpdate = true;
+            if (_upgradeCounts[upgrade] >= 10) PoolNeedsUpdate = true;
         }
         else
         {
