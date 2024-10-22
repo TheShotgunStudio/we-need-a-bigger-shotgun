@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
     public Dictionary<string, IAbstractState> States { get; private set; }
     public IAbstractState CurrentState { get; private set; }
     public PlayerComponentManager PlayerComponentManager { get; private set; }
+    [SerializeField]
+    private PlayerStats _baseStats;
     public PlayerStats Stats { get; private set; }
 
     /// <summary>
@@ -45,7 +47,7 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
         }
         if (Stats == null)
         {
-            Stats = new PlayerStats();
+            Stats = (PlayerStats)_baseStats.Clone();
         }
 
         PlayerComponentManager = GetComponent<PlayerComponentManager>();
@@ -73,7 +75,7 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
     {
         CurrentState.OnStateProcessing();
     }
-    
+
     // FixedUpdate is called a fixed amount of times per second
     void FixedUpdate()
     {
@@ -84,5 +86,26 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
     {
         if (CurrentState is not IAttackHandler) return;
         ((IAttackHandler)CurrentState).OnAttackInput(value);
+    }
+    
+    public void ApplyUpgrade(UpgradeData upgrade)
+    {
+        float increase;
+
+        switch (upgrade.UpgradeName)
+        {
+            case "Health":
+                increase = _baseStats.Health * upgrade.Value;
+                Stats.Health += increase;
+                break;
+            case "Attack":
+                increase = _baseStats.Attack * upgrade.Value;
+                Stats.Attack += increase;
+                break;
+            case "Speed":
+                increase = _baseStats.Speed * upgrade.Value;
+                Stats.Speed += increase;
+                break;
+        }
     }
 }
