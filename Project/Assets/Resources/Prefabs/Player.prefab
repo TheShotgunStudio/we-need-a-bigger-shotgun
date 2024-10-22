@@ -302,8 +302,8 @@ GameObject:
   - component: {fileID: 2875625625691979875}
   - component: {fileID: 8989306030831692054}
   - component: {fileID: 5566546042875849585}
-  - component: {fileID: 7545462788657134900}
   - component: {fileID: 4699433248032248595}
+  - component: {fileID: 1588733966431108910}
   m_Layer: 3
   m_Name: PlayerController
   m_TagString: Untagged
@@ -435,29 +435,6 @@ MonoBehaviour:
   Rigidbody: {fileID: 0}
   PlayerModel: {fileID: 2812005528466689498}
   PlayerSpine: {fileID: 5474479405501035403}
---- !u!114 &7545462788657134900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2454995619284430528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0dc729aa940a214abf136add4c28dfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MainCamera: {fileID: 0}
-  ExplosionPosition: {fileID: 2545557389485610500}
-  PlayerRigidbody: {fileID: 1549866860212564314}
-  RecoilForce: 25
-  ReloadTime: 2.5
-  ShotgunShot: {fileID: 8300000, guid: c2ca2e8d6fe141a44aef6097a677e124, type: 3}
-  ShotgunReload: {fileID: 8300000, guid: 12a7442cd6df28f47a0196244edb4d9f, type: 3}
-  ShotgunReloadVFX: {fileID: 1353141561521026605, guid: 34cbd754083b06c49b1e0036df2bd0d4,
-    type: 3}
-  ShotgunMuzzleVFX: {fileID: 5959809751551950536, guid: 1c97cb654709afd418a5215ba71131e1,
-    type: 3}
 --- !u!114 &4699433248032248595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,6 +448,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraController: {fileID: 0}
+  _baseStats: {fileID: 11400000, guid: b1dec7f9c24582a4d8d2c2dff8237242, type: 2}
+  GroundLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &1588733966431108910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2454995619284430528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84fa52c43ef8bc94bb000c60e3b8a59c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraController: {fileID: 0}
+  _baseStats: {fileID: 0}
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 0
@@ -586,8 +581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652927ecef51c234f938d33f0a18a888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 1549866860212564314}
-  offset: {x: 0, y: 1, z: 0}
+  PlayerTransform: {fileID: 0}
+  Offset: {x: 0, y: 0, z: 0}
 --- !u!1 &3098646763344386133
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,8 +774,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652927ecef51c234f938d33f0a18a888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 1549866860212564314}
-  offset: {x: 0, y: 0, z: 0}
+  PlayerTransform: {fileID: 0}
+  Offset: {x: 0, y: 0, z: 0}
 --- !u!1 &3355232733475176219
 GameObject:
   m_ObjectHideFlags: 0

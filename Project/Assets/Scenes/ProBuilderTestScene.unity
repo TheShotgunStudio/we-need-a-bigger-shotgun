@@ -293,10 +293,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815fa912be85975429c125197220f671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pitchMultiplier: 0.1
-  volumeMultiplier: 0.01
-  soundEffectObject: {fileID: 8349468522717782482, guid: 7ec8d5b8c25351641b99b6fc1f3af4d8,
-    type: 3}
+  PitchMultiplier: 0.1
+  VolumeMultiplier: 0.01
+  SoundEffectObject: {fileID: 0}
 --- !u!1 &513198625
 GameObject:
   m_ObjectHideFlags: 3
@@ -7695,6 +7694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraController: {fileID: 2021696971}
+  _baseStats: {fileID: 0}
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 0
@@ -8555,6 +8555,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4699433248032248595, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
+        type: 3}
+      propertyPath: _baseStats
+      value: 
+      objectReference: {fileID: 11400000, guid: b1dec7f9c24582a4d8d2c2dff8237242,
+        type: 2}
+    - target: {fileID: 4699433248032248595, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
+        type: 3}
+      propertyPath: CameraController
+      value: 
+      objectReference: {fileID: 2021696971}
     - target: {fileID: 5363915185667916729, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8610,7 +8621,8 @@ PrefabInstance:
       propertyPath: MainCamera
       value: 
       objectReference: {fileID: 1884892309}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7545462788657134900, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
