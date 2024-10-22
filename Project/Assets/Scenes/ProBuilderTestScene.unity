@@ -7483,25 +7483,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 139077500679039208, guid: 670a93efb17c7824887d1f9b2cfe3471,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 139077500679039208, guid: 670a93efb17c7824887d1f9b2cfe3471,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 139077500679039208, guid: 670a93efb17c7824887d1f9b2cfe3471,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 150
-      objectReference: {fileID: 0}
     - target: {fileID: 729655642967772203, guid: 670a93efb17c7824887d1f9b2cfe3471,
         type: 3}
       propertyPath: m_Name
       value: UIElements
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042984093774128768, guid: 670a93efb17c7824887d1f9b2cfe3471,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 3520387977407352734, guid: 670a93efb17c7824887d1f9b2cfe3471,
         type: 3}
