@@ -21,7 +21,7 @@ public class MoveState : ControlState, IAttackHandler
     private Transform _playerSpine;
 
     private float _turnSmoothVelocity;
-    private float _playerHeight = 1.2F;
+    private float _playerHeight = 2.2F;
 
     public Dictionary<string, IAbstractState> Neighbors { get; private set; } = new Dictionary<string, IAbstractState>();
     public IFiniteStateMachine.StateSetter StateSetter { get; private set; }
@@ -120,7 +120,9 @@ public class MoveState : ControlState, IAttackHandler
     /// </summary>
     public void MoveWithAcceleration(ref Vector3 velocity)
     {
-        Vector3 addedMovement = _playerInputHandler.CurrentMovementDirection * _playerStats.Speed * _playerStats.Acceleration * Time.deltaTime * 2.0F * Mathf.Max(velocity.magnitude * _playerStats.AirTurning, 1.0F);
+        float velocityArcingMultiplier = Mathf.Max(velocity.magnitude * _playerStats.AirTurning, 1.0F);
+        float accelerationRate = _playerStats.Speed * _playerStats.Acceleration * Time.deltaTime * 2.0F;
+        Vector3 addedMovement = _playerInputHandler.CurrentMovementDirection * accelerationRate * velocityArcingMultiplier;
         velocity = Vector3.ClampMagnitude(new Vector3(velocity.x, 0.0F, velocity.z) + addedMovement, Mathf.Max(new Vector2(velocity.x, velocity.z).magnitude, _playerStats.Speed));
     }
 
