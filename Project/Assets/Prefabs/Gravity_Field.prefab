@@ -120,9 +120,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mode: 0
-  priority: 0
+  Priority: 0
   GravityFacingDirection: 5
   GravityStrength: 9.80665
+  RecalculateGravityDirection: 0
 --- !u!114 &1008753213116494363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,5 +136,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbf95c351a5f764e95925c774b984e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugRenderers:
+  DebugRenderers:
   - {fileID: 5007520123562926504}
