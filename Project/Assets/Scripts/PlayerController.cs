@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
         // Initialize state dictionary
         States = new Dictionary<string, IAbstractState>()
         {
-            { "Movable", new MoveState(stateSetter, PlayerComponentManager, CameraController, Stats, GroundLayerMask) }
+            { "Movable", new MoveState(stateSetter, PlayerComponentManager, CameraController, Stats) }
         };
 
         // Activate state machine by setting the default state
