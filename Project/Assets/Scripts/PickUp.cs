@@ -26,6 +26,11 @@ public class PickUp : MonoBehaviour
 
     private void OnPickUp(PlayerController player)
     {
+        // Temporary solution, will implement proper system once we have a weapon system
+        if (player.gameObject.GetComponent<Shotgun>() == null) return;
+        
+        player.gameObject.GetComponent<Shotgun>().enabled = true;
+
         // Assign item to player
     }
 

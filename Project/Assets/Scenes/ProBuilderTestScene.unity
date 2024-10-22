@@ -8530,6 +8530,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 329203174644888542, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 329203174644888542, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
+        type: 3}
       propertyPath: MainCamera
       value: 
       objectReference: {fileID: 1884892309}

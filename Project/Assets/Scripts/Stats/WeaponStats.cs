@@ -6,8 +6,8 @@ using UnityEngine;
 public class WeaponStats : Stats
 {
     public float AttackSpeed;
-    public float ReloadSpeed;
+    public float ReloadTime;
     public float Range;
     public float DamageDropoffRange;
-    public float RecoilStrength;
+    public float RecoilForce;
 }
