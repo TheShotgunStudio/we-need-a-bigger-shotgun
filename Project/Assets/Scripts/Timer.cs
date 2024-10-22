@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class Timer
 {
-    public float countDown = 0.0f;
+    public float CountDown = 0.0f;
     
     public void Start(float time){
-        countDown = time;
+        CountDown = time;
     }
 
     public void Tick(){
-        if(countDown >= 0){
-            countDown -= Time.deltaTime;
+        if(CountDown >= 0){
+            CountDown -= Time.deltaTime;
         }
     }
 
     public bool IsFinished(){
-        return countDown <= 0;
+        return CountDown <= 0;
     }
 }
