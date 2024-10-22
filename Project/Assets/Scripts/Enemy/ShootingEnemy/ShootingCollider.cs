@@ -10,7 +10,7 @@ public class ShootingCollider : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<PlayerController>(out PlayerController playerController))
+        if (other.TryGetComponent(out PlayerController playerController))
         {
             OnShootingEnter.Invoke();
         }
@@ -18,7 +18,7 @@ public class ShootingCollider : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent<PlayerController>(out PlayerController playerController))
+        if (other.TryGetComponent(out PlayerController playerController))
         {
             OnShootingExit.Invoke();
         }
