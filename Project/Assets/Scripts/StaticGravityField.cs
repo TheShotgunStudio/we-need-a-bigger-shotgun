@@ -84,7 +84,6 @@ public class StaticGravityField : MonoBehaviour
     /// <returns>A Vector3 That is to be used as a direction </returns>
     private Vector3 DetermineGravityForceDirection()
     {
-        Debug.Log("YEEY");
         if (Mode == GravityMode.CARDINAL)
         {
             gameObject.transform.rotation = Quaternion.identity;
