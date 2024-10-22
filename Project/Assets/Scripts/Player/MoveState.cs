@@ -56,7 +56,7 @@ public class MoveState : ControlState, IAttackHandler
         //Move player model and its spine according to the camera
         _playerModel.transform.rotation = Quaternion.Euler(0,  Camera.main.transform.rotation.eulerAngles.y, 0);
         Quaternion lookRotation = Quaternion.LookRotation((Camera.main.transform.position + Camera.main.transform.forward * 10.0f) - _playerSpine.position);
-        _playerSpine.rotation = math.slerp(_playerSpine.rotation, lookRotation, 0.9f);
+        _playerSpine.rotation = lookRotation;
 
 
         // If the player is holding down a direction

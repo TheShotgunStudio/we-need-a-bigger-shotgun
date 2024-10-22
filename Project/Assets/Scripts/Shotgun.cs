@@ -18,7 +18,9 @@ public class Shotgun : MonoBehaviour
 
     public GameObject ShotgunReloadVFX;
     public GameObject ShotgunMuzzleVFX;
-
+    public GameObject Crosshair;
+    private float _crosshairSize = 100.0f;
+    private float _currentCrosshairSize = 100.0f;
 
     private Timer _reloadTimer = new Timer();
 
@@ -27,6 +29,12 @@ public class Shotgun : MonoBehaviour
 
         if(Input.GetMouseButton(0) && _reloadTimer.IsFinished()){
             Shoot();
+        }
+
+        if(Crosshair.GetComponent<RectTransform>().sizeDelta.x != _crosshairSize){
+            _currentCrosshairSize = Crosshair.GetComponent<RectTransform>().sizeDelta.x;
+            _currentCrosshairSize = Mathf.Lerp(_currentCrosshairSize, _crosshairSize, Time.deltaTime);
+            Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_currentCrosshairSize, _currentCrosshairSize);
         }
     }
 
@@ -41,6 +49,7 @@ public class Shotgun : MonoBehaviour
 
     private void Shoot(){
             _reloadTimer.Start(ReloadTime);
+            Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_crosshairSize * 2.0f, _crosshairSize * 2.0f);
             PlayerRigidbody.GetComponent<Rigidbody>().velocity -= MainCamera.transform.forward * RecoilForce;
             SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
             StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));

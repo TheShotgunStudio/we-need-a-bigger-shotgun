@@ -18,6 +18,6 @@ public class FollowPosition : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        this.transform.position = Vector3.Lerp(this.transform.position, PlayerTransform.transform.position + Offset, 0.9f);
+        this.transform.position = PlayerTransform.transform.position;
     }
 }
