@@ -18,6 +18,6 @@ public class FollowPosition : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        this.transform.position = PlayerTransform.transform.position;
+        this.transform.position = PlayerTransform.transform.position + Offset;
     }
 }

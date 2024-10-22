@@ -7469,6 +7469,12 @@ Transform:
   - {fileID: 643878583}
   m_Father: {fileID: 2021696969}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &844670257 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 179265086315599395, guid: 670a93efb17c7824887d1f9b2cfe3471,
+    type: 3}
+  m_PrefabInstance: {fileID: 989439897}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &989439897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7486,6 +7492,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 139077500679039208, guid: 670a93efb17c7824887d1f9b2cfe3471,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 729655642967772203, guid: 670a93efb17c7824887d1f9b2cfe3471,
         type: 3}
@@ -8575,6 +8586,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 329203174644888542, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
         type: 3}
+      propertyPath: Crosshair
+      value: 
+      objectReference: {fileID: 844670257}
+    - target: {fileID: 329203174644888542, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
+        type: 3}
       propertyPath: MainCamera
       value: 
       objectReference: {fileID: 1884892309}
@@ -8642,6 +8658,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8013592953907573236, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
+        type: 3}
+      propertyPath: Offset.y
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
