@@ -1,31 +1,108 @@
+using Cinemachine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerInput))]
-public class PlayerController : MonoBehaviour
+/// <summary>
+/// Main player script. Functions as a finite state machine to delegate responsibilities.
+/// </summary>
+[RequireComponent(typeof(PlayerComponentManager))]
+public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandler
 {
-    [HideInInspector]
-    public Rigidbody Rigidbody;
-    public GameObject CameraFollowTarget;
-    public void OnAttack(InputValue value)
+    public CameraController CameraController;
+    public Dictionary<string, IAbstractState> States { get; private set; }
+    public IAbstractState CurrentState { get; private set; }
+    public PlayerComponentManager PlayerComponentManager { get; private set; }
+    [SerializeField]
+    private PlayerStats _baseStats;
+    public PlayerStats Stats { get; private set; }
+
+    /// <summary>
+    /// A list of layers this player controller will treat as ground/terrain
+    /// </summary>
+    public LayerMask GroundLayerMask;
+
+    public void SetState(IAbstractState state)
     {
-        // Set the rigidbody velocity opposite the camera directions
-        Rigidbody.velocity -= CameraFollowTarget.transform.forward * 3.0F;
+        if (state == null) return;
+        if (CurrentState != null) CurrentState.OnStateExit();
+        CurrentState = state;
+        CurrentState.OnStateEnter();
     }
 
-    // Start is called before the first frame update
+    public void SetState(string stateKey)
+    {
+        SetState(States[stateKey]);
+    }
+
     void Start()
     {
-        if (!TryGetComponent(out Rigidbody))
+        if (CameraController == null)
         {
-            throw new NullReferenceException("PlayerController did not find Rigidbody component.");
+            throw new NullReferenceException("CameraController not set for PlayerController.");
         }
-        if (CameraFollowTarget == null)
+        if (Stats == null)
         {
-            throw new NullReferenceException("PlayerController does not have CameraFollowTarget set.");
+            Stats = (PlayerStats)_baseStats.Clone();
+        }
+
+        PlayerComponentManager = GetComponent<PlayerComponentManager>();
+        InitializeStates();
+
+        PlayerComponentManager.InputHandler.OnAttackDelegates.Add((value) => OnAttackInput(value));
+    }
+
+    public void InitializeStates()
+    {
+        IFiniteStateMachine.StateSetter stateSetter = (state) => CurrentState = state;
+
+        // Initialize state dictionary
+        States = new Dictionary<string, IAbstractState>()
+        {
+            { "Movable", new MoveState(stateSetter, PlayerComponentManager, CameraController, Stats) }
+        };
+
+        // Activate state machine by setting the default state
+        SetState("Movable");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        CurrentState.OnStateProcessing();
+    }
+
+    // FixedUpdate is called a fixed amount of times per second
+    void FixedUpdate()
+    {
+        CurrentState.OnStateFixedProcessing();
+    }
+
+    public void OnAttackInput(InputValue value)
+    {
+        if (CurrentState is not IAttackHandler) return;
+        ((IAttackHandler)CurrentState).OnAttackInput(value);
+    }
+    
+    public void ApplyUpgrade(UpgradeData upgrade)
+    {
+        float increase;
+
+        switch (upgrade.UpgradeName)
+        {
+            case "Health":
+                increase = _baseStats.Health * upgrade.Value;
+                Stats.Health += increase;
+                break;
+            case "Attack":
+                increase = _baseStats.Attack * upgrade.Value;
+                Stats.Attack += increase;
+                break;
+            case "Speed":
+                increase = _baseStats.Speed * upgrade.Value;
+                Stats.Speed += increase;
+                break;
         }
     }
 }
