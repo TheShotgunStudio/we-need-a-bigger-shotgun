@@ -1073,7 +1073,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 610089362}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ba1a3fb999ef84f499a5230cfeb78fe7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1585,11 +1585,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1630697035379155799, guid: fef246ade6ac58241a9d240592053494,
         type: 3}
-      propertyPath: m_Follow
-      value: 
-      objectReference: {fileID: 1107420731}
-    - target: {fileID: 1630697035379155799, guid: fef246ade6ac58241a9d240592053494,
-        type: 3}
       propertyPath: m_LookAt
       value: 
       objectReference: {fileID: 1107420731}
@@ -1643,11 +1638,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3639359404829925478, guid: fef246ade6ac58241a9d240592053494,
-        type: 3}
-      propertyPath: m_Drag
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5685694072348626244, guid: fef246ade6ac58241a9d240592053494,
         type: 3}
       propertyPath: m_Camera
@@ -1668,20 +1658,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8094025098741060834, guid: fef246ade6ac58241a9d240592053494,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 7e50ce99c3c5f164ea846ab66157e9b9,
-        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7853836720477867111, guid: fef246ade6ac58241a9d240592053494,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1692591481}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fef246ade6ac58241a9d240592053494, type: 3}
 --- !u!43 &859106850
 Mesh:
@@ -8119,7 +8099,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1386642446}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ba1a3fb999ef84f499a5230cfeb78fe7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -8444,42 +8424,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1692591476 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7853836720477867111, guid: fef246ade6ac58241a9d240592053494,
-    type: 3}
-  m_PrefabInstance: {fileID: 847898678}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1692591481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1692591476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CollideAgainst:
-    serializedVersion: 2
-    m_Bits: 1
-  m_IgnoreTag: Player
-  m_TransparentLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_MinimumDistanceFromTarget: 0.1
-  m_AvoidObstacles: 1
-  m_DistanceLimit: 0
-  m_MinimumOcclusionTime: 0
-  m_CameraRadius: 0.1
-  m_Strategy: 1
-  m_MaximumEffort: 4
-  m_SmoothingTime: 0
-  m_Damping: 0
-  m_DampingWhenOccluded: 0
-  m_OptimalTargetDistance: 0
 --- !u!43 &1697268860
 Mesh:
   m_ObjectHideFlags: 0
@@ -8673,7 +8617,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1792593765}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ba1a3fb999ef84f499a5230cfeb78fe7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
