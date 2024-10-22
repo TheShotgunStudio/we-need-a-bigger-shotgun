@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b591b1ff014d8144fb3e137d21928547, type: 3}
-  m_Name: PlayerStats
+  m_Script: {fileID: 11500000, guid: 3615a44b0963df44ab7ca6f6e03b8a91, type: 3}
+  m_Name: Speed (Passive)
   m_EditorClassIdentifier: 
-  Health: 100
-  Attack: 20
-  Speed: 6
-  Acceleration: 1
-  TurnTime: 0.1
-  CritRate: 0
-  CritDamage: 1.5
-  KnockbackForce: 5
+  UpgradeName: Speed
+  Icon: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  Description: Increases player movement speed by +10%
+  Type: 0
+  Value: 0.1
