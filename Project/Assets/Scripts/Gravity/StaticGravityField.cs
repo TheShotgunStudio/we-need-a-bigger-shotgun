@@ -71,7 +71,6 @@ public class StaticGravityField : MonoBehaviour
             tempMaterial.color = fieldFill;
             debugRenderer.material = tempMaterial;
         }
-        Debug.Log($"{gameObject.name} Gravity force direction: {GravityForce}");
     }
 
     private void OnTriggerEnter(Collider other)
