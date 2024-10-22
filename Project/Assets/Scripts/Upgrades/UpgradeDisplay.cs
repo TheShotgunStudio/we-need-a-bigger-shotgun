@@ -32,15 +32,12 @@ public class UpgradeDisplay : MonoBehaviour
         // Get random upgrades based on the available count
         List<UpgradeData> randomUpgrades = GetRandomUpgrades(numUpgradesToDisplay);
 
-        // Loop only through the available slots for the number of upgrades to display
         for (int i = 0; i < numUpgradesToDisplay; i++)
         {
             UpgradeData upgrade = randomUpgrades[i];
 
-            // Get the count of how many times this upgrade has been taken
             int upgradeCount = _upgradeCounts.ContainsKey(upgrade) ? _upgradeCounts[upgrade] + 1 : 1;
 
-            // Set the card slot with the upgrade and its count
             CardSlots[i].SetCard(upgrade, upgradeCount);
         }
 
