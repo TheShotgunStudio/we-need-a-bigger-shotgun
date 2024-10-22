@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,13 +15,15 @@ public class MoveState : ControlState, IAttackHandler
     private PlayerInputHandler _playerInputHandler;
     private CameraController _cameraController;
     private PlayerStats _playerStats;
+    private LayerMask _layerMask;
 
     private float _turnSmoothVelocity;
+    private float _playerHeight = 1.2F;
 
     public Dictionary<string, IAbstractState> Neighbors { get; private set; } = new Dictionary<string, IAbstractState>();
     public IFiniteStateMachine.StateSetter StateSetter { get; private set; }
 
-    public MoveState(IFiniteStateMachine.StateSetter stateSetter, PlayerComponentManager playerComponentManager, CameraController cameraController, PlayerStats playerStats)
+    public MoveState(IFiniteStateMachine.StateSetter stateSetter, PlayerComponentManager playerComponentManager, CameraController cameraController, PlayerStats playerStats, LayerMask layerMask)
     {
         this._playerComponentManager = playerComponentManager;
         this._playerObject = playerComponentManager.gameObject;
@@ -28,12 +31,13 @@ public class MoveState : ControlState, IAttackHandler
         this._playerInputHandler = playerComponentManager.InputHandler;
         this._cameraController = cameraController;
         this._playerStats = playerStats;
+        this._layerMask = layerMask;
         this.StateSetter = stateSetter;
     }
 
     public object Clone()
     {
-        MoveState moveState = new MoveState(StateSetter, _playerComponentManager, _cameraController, _playerStats);
+        MoveState moveState = new MoveState(StateSetter, _playerComponentManager, _cameraController, _playerStats, _layerMask);
         moveState._turnSmoothVelocity = _turnSmoothVelocity;
 
         return moveState;
@@ -45,8 +49,11 @@ public class MoveState : ControlState, IAttackHandler
         // Handle camera
         _cameraController.CameraFollowTarget.transform.position = _playerObject.transform.position;
 
+        Vector3 velocity = _playerRigidbody.velocity;
+        Vector3 position = _playerObject.transform.position;
+
         // Preserve the y component
-        float y = _playerRigidbody.velocity.y;
+        float y = velocity.y;
 
         // If the player is holding down a direction
         if (_playerInputHandler.CurrentInputDirection.magnitude > 0.01)
@@ -55,31 +62,60 @@ public class MoveState : ControlState, IAttackHandler
             float angle = Mathf.SmoothDampAngle(_playerObject.transform.eulerAngles.y, _playerInputHandler.CurrentTargetAngle, ref _turnSmoothVelocity, _playerStats.TurnTime);
             _playerObject.transform.rotation = Quaternion.Euler(0F, angle, 0F);
 
-            // Holy cow, Batman, this is scuffed!
-            // I have no idea why something this convoluted produces remotely good results, but hey if it works, it works
-            _playerRigidbody.velocity = _playerRigidbody.velocity.magnitude * _playerInputHandler.CurrentMovementDirection;
-            _playerRigidbody.velocity += _playerInputHandler.CurrentMovementDirection * _playerStats.Speed * _playerStats.Acceleration * Time.deltaTime * 4.0F;
-            _playerRigidbody.velocity = Vector3.ClampMagnitude(_playerRigidbody.velocity, _playerStats.Speed);
+            MovePlayer(position, ref velocity);
+        } else if (velocity.magnitude < _playerStats.Speed)
+        {
+            // Apply strong drag to the movement
+            float drag = 30.0F;
+            velocity -= velocity.normalized * Mathf.Clamp(Time.deltaTime * _playerStats.Acceleration * drag, 0.0F, velocity.magnitude);
+        }
 
-            // Reintroduce the Y component to the velocity
-            _playerRigidbody.velocity += new Vector3(0F, y, 0F);
+        // Reintroduce the Y component to the velocity
+        _playerRigidbody.velocity = new Vector3(velocity.x, y, velocity.z);
+    }
+
+    /// <summary>
+    /// Handles actual player movement
+    /// </summary>
+    public void MovePlayer(Vector3 position, ref Vector3 velocity)
+    {
+        if (velocity.magnitude <= _playerStats.Speed && IsGrounded(position))
+        {
+            MoveSnappy(ref velocity);
         }
         else
         {
-            // If the velocity is almost zero
-            if (_playerRigidbody.velocity.magnitude < 0.1)
-            {
-                // Remove all horizontal velocity
-                _playerRigidbody.velocity = new Vector3(0F, _playerRigidbody.velocity.y, 0F);
-            } else
-            {
-                // Apply insane drag to the movement
-                _playerRigidbody.velocity -= _playerRigidbody.velocity.normalized * Time.deltaTime * _playerStats.Acceleration * 30F;
-
-                // Reintroduce the Y component to the velocity
-                _playerRigidbody.velocity = new Vector3(_playerRigidbody.velocity.x, y, _playerRigidbody.velocity.z);
-            }
+            MoveWithAcceleration(ref velocity);
         }
+    }
+
+    /// <summary>
+    /// Moves more responsively by snapping existing movement to the new direction
+    /// </summary>
+    public void MoveSnappy(ref Vector3 velocity)
+    {
+        // Set the new velocity to be the old velocity but in the direction of the new movement input direction
+        velocity = velocity.magnitude * _playerInputHandler.CurrentMovementDirection;
+
+        // Add the acceleration to the existing velocity
+        velocity += _playerInputHandler.CurrentMovementDirection * _playerStats.Speed * _playerStats.Acceleration * Time.deltaTime * 4.0F;
+
+        // Clamp the velocity to the max speed
+        velocity = Vector3.ClampMagnitude(velocity, _playerStats.Speed);
+    }
+
+    /// <summary>
+    /// Moves by adding velocity based on acceleration
+    /// </summary>
+    public void MoveWithAcceleration(ref Vector3 velocity)
+    {
+        Vector3 addedMovement = _playerInputHandler.CurrentMovementDirection * _playerStats.Speed * _playerStats.Acceleration * Time.deltaTime * 2.0F * Mathf.Max(velocity.magnitude * _playerStats.AirTurning, 1.0F);
+        velocity = Vector3.ClampMagnitude(new Vector3(velocity.x, 0.0F, velocity.z) + addedMovement, Mathf.Max(new Vector2(velocity.x, velocity.z).magnitude, _playerStats.Speed));
+    }
+
+    public bool IsGrounded(Vector3 position)
+    {
+        return Physics.Raycast(position, Vector3.down, _playerHeight * 0.5F, _layerMask);
     }
 
     public void OnStateProcessing()
