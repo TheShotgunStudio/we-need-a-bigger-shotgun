@@ -6,7 +6,7 @@ public class Stats : ScriptableObject
 {
     public float Health;
     public float Attack;
-    public float Speed = 6.0F;
+    public float Speed;
 
     /// <summary>
     /// Clone the stats so that the ScriptableObject doesn't get modified

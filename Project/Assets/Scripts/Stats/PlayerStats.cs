@@ -7,7 +7,7 @@ public class PlayerStats : Stats
 {
     public float Acceleration;
     public float TurnTime;
-    public float AirTurning = 0.07F;
+    public float AirTurning;
     public float CritRate;
     public float CritDamage;
 }
