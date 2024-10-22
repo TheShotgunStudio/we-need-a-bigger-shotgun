@@ -5,15 +5,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static bool DoDebugRendering;
 
-    public bool DoDebugRendering;
+    private static bool _hasInitialized = false;
+
+    [SerializeField]
+    public bool _doDebugRendering;
     // Start is called before the first frame update
     private void Awake()
     {
-        if (Instance == null)
+        if (!_hasInitialized)
         {
-            Instance = this;
+            _hasInitialized = true;
+            DoDebugRendering = _doDebugRendering;
         }
     }
 }

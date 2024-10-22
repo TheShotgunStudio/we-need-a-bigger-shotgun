@@ -21,7 +21,7 @@ public class StaticGravityField : MonoBehaviour
     public GravityMode Mode;
 
     [Tooltip("Priority handles the calculation priority of gravity. Fields with Priority 0 will not be applied to an object if the object is inside of a field with priority 1.")]
-    public int priority;
+    public int Priority;
 
     [Tooltip("Facing Direction of the gravity field. Uses the XYZ indicator in Unity's scene view (top right of the scene view) as reference for direction. \n\n(Towards-X would mean the gravity would face towards the red X arrow.)")]
     public GravityDirection GravityFacingDirection = GravityDirection.FROM_Y;
@@ -84,7 +84,6 @@ public class StaticGravityField : MonoBehaviour
     /// <returns>A Vector3 That is to be used as a direction </returns>
     private Vector3 DetermineGravityForceDirection()
     {
-        Debug.Log("YEEY");
         if (Mode == GravityMode.CARDINAL)
         {
             gameObject.transform.rotation = Quaternion.identity;

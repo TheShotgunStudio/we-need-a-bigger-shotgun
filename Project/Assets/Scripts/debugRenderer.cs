@@ -5,13 +5,13 @@ using UnityEngine;
 public class debugRenderer : MonoBehaviour
 {
 
-    public List<MeshRenderer> debugRenderers;
+    public List<MeshRenderer> DebugRenderers;
     // Start is called before the first frame update
     void Start()
     {
-        if (GameManager.Instance.DoDebugRendering == false)
+        if (!GameManager.DoDebugRendering)
         {
-            foreach (var ren in debugRenderers)
+            foreach (var ren in DebugRenderers)
             {
                 ren.enabled = false;
             }
