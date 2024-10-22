@@ -8,23 +8,21 @@ public class ShootingEnemy : BasicEnemy
 {
     public GameObject Bullet;
     public float BulletSpeed = 25f;
-    public float TimeBetweenBullets = 0.5f;
-
 
     /// <summary>
     /// Starts the movement behavior of the enemy by resetting its speed.
     /// This function is called via the MovementCollider OnTriggerExit UnityEvents.
     /// </summary>
-    public void StartMovment()
+    public void StartMovement()
     {
-        base.Resetspeed(); // Reset base behavior
+        base.ResetSpeed(); // Reset base behavior
     }
 
     /// <summary>
     /// Stops the movement of the enemy by setting its speed and velocity to zero.
     /// This function is called via the MovementCollider OnTriggerEnter UnityEvents.
     /// </summary>
-    public void StopMovment()
+    public void StopMovement()
     {
         Agent.speed = 0;
         Agent.velocity = Vector3.zero;
@@ -36,7 +34,7 @@ public class ShootingEnemy : BasicEnemy
     /// </summary>
     public void StartShooting()
     {
-        InvokeRepeating("Shoot", TimeBetweenBullets, TimeBetweenBullets);
+        InvokeRepeating("Shoot", AttackCooldown, AttackCooldown);
     }
 
     /// <summary>

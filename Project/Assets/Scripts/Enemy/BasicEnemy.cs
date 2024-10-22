@@ -8,17 +8,21 @@ public class BasicEnemy : MonoBehaviour
 {
     public GameObject Player;
     protected NavMeshAgent Agent;
-
-    public float Speed;
-    private float _speedSave;
     public float Acceleration;
+    [SerializeField]
+    private EnemyStats _baseStats;
+    [HideInInspector]
+    public EnemyStats Stats;
+    protected float AttackCooldown;
 
     protected virtual void Start()
     {
+        Stats = (EnemyStats)_baseStats.Clone();
+        AttackCooldown = 1f / Stats.AttackSpeed;
+
         Agent = GetComponent<NavMeshAgent>();
-        Agent.speed = Speed;
-        Agent.acceleration = Acceleration;
-        _speedSave = Speed;
+        Agent.speed = Stats.Speed;
+        Agent.acceleration = Stats.Acceleration;
     }
 
     protected virtual void Update()
@@ -34,17 +38,8 @@ public class BasicEnemy : MonoBehaviour
         Agent.SetDestination(Player.transform.position);
     }
 
-    /// <summary>
-    /// Handles the enemy's death behavior.
-    /// </summary>
-    protected virtual void Death()
+    protected void ResetSpeed()
     {
-        // Implement enemy death behavior (generic)
-        Debug.Log("Enemy died");
-    }
-
-    protected void Resetspeed()
-    {
-        Agent.speed = _speedSave;
+        Agent.speed = Stats.Speed;
     }
 }

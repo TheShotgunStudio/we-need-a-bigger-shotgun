@@ -5,14 +5,14 @@ using UnityEngine.Events;
 
 public class MovementCollider : MonoBehaviour
 {
-    public UnityEvent OnMoventEnter;
-    public UnityEvent OnMoventExit;
+    public UnityEvent OnMovementEnter;
+    public UnityEvent OnMovementExit;
 
     public void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<PlayerController>(out PlayerController playerController))
         {
-            OnMoventEnter.Invoke();
+            OnMovementEnter.Invoke();
         }
     }
 
@@ -20,7 +20,7 @@ public class MovementCollider : MonoBehaviour
     {
         if (other.TryGetComponent<PlayerController>(out PlayerController playerController))
         {
-            OnMoventExit.Invoke();
+            OnMovementExit.Invoke();
         }
     }
 }

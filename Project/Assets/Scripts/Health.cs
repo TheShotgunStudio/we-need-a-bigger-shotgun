@@ -14,7 +14,10 @@ public class Health : MonoBehaviour
         {
             _maxHealth = player.Stats.Health;
         }
-        // TODO: Add a way to get the max health from the Enemy
+        else if (TryGetComponent(out BasicEnemy enemy))
+        {
+            _maxHealth = enemy.Stats.Health;
+        }
 
         _currentHealth = _maxHealth;
     }
