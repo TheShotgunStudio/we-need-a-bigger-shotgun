@@ -11,9 +11,9 @@ public class HealthDisplay : MonoBehaviour
 
     private float _startHealthWidth;
 
-    private int _health;
-    private float _redHealthWidth;
-    private float _whiteHealthWidth;
+    private float _maxHealth;
+    private float _redHealthWidth = 0;
+    private float _whiteHealthWidth = 0;
     private float _widthDifference;
 
     [Range(0.001f,0.1f)]
@@ -22,12 +22,13 @@ public class HealthDisplay : MonoBehaviour
 
     void Start()
     {
-        // TrackedCharacter.TryGetComponent<HealthTracking>(out HealthTracking characterHealth);
-        _health = 10; //TODO get actual health
-        _startHealthWidth = GetComponent<RectTransform>().sizeDelta.x;
+        if (TryGetComponent(out RectTransform healthDisplayTransform))
+        {
+            _startHealthWidth = healthDisplayTransform.sizeDelta.x;
+        } else {
+            Debug.LogError("No RectTransform found");
+        }
         InitiateHealth();
-        _redHealthWidth = 0;
-        _whiteHealthWidth = 0;
     }
 
     void Update() {
@@ -47,10 +48,14 @@ public class HealthDisplay : MonoBehaviour
         WhiteHealth.sizeDelta = new Vector2(_whiteHealthWidth, 0);
     }
 
-    public void LoseHealth(int healthLost) 
+    /// <summary>
+    /// Reduces the width of the healthbar proportionally to the max health
+    /// </summary>
+    /// <param name="healthLost">integer amount of health lost</param>
+    public void LoseHealth(float healthLost) 
     {
         Debug.Log(_redHealthWidth);
-        _redHealthWidth = _redHealthWidth - (healthLost * (_startHealthWidth/_health));
+        _redHealthWidth = _redHealthWidth - (healthLost * (_startHealthWidth/_maxHealth));
         Debug.Log(_redHealthWidth);
         if (_redHealthWidth >= _startHealthWidth){
             _redHealthWidth = _startHealthWidth;
@@ -58,14 +63,22 @@ public class HealthDisplay : MonoBehaviour
         RedHealth.sizeDelta = new Vector2(_redHealthWidth, 0);
     }
 
-    public void GainHealth(int healthGained) 
+    /// <summary>
+    /// Increases the width of the healthbar proportionally to the max health
+    /// </summary>
+    /// <param name="healthGained">integer amount of health gained</param>
+    public void GainHealth(float healthGained) 
     {
-        _redHealthWidth = _redHealthWidth + (healthGained * (_startHealthWidth/_health));
+        _redHealthWidth = _redHealthWidth + (healthGained * (_startHealthWidth/_maxHealth));
         if (_redHealthWidth >= 0){
             _redHealthWidth = 0;
         }
         _whiteHealthWidth = _redHealthWidth;
         RedHealth.sizeDelta = new Vector2(_redHealthWidth , 0);
         WhiteHealth.sizeDelta = new Vector2(_whiteHealthWidth , 0);
+    }
+
+    public void SetMaxHealth(float maxHealth) {
+        _maxHealth = maxHealth;
     }
 }
