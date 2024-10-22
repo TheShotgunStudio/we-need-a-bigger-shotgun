@@ -10,13 +10,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerComponentManager))]
 public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandler
 {
-    public CameraController CameraController;
     public Dictionary<string, IAbstractState> States { get; private set; }
     public IAbstractState CurrentState { get; private set; }
     public PlayerComponentManager PlayerComponentManager { get; private set; }
-    [SerializeField]
-    private PlayerStats _baseStats;
-    public PlayerStats Stats { get; private set; }
 
     /// <summary>
     /// A list of layers this player controller will treat as ground/terrain
@@ -38,15 +34,6 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
 
     void Start()
     {
-        if (CameraController == null)
-        {
-            throw new NullReferenceException("CameraController not set for PlayerController.");
-        }
-        if (Stats == null)
-        {
-            Stats = (PlayerStats)_baseStats.Clone();
-        }
-
         PlayerComponentManager = GetComponent<PlayerComponentManager>();
         InitializeStates();
 
@@ -60,7 +47,7 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
         // Initialize state dictionary
         States = new Dictionary<string, IAbstractState>()
         {
-            { "Movable", new MoveState(stateSetter, PlayerComponentManager, CameraController, Stats, GroundLayerMask) }
+            { "Movable", new MoveState(stateSetter, PlayerComponentManager, GroundLayerMask) }
         };
 
         // Activate state machine by setting the default state
@@ -92,16 +79,16 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
         switch (upgrade.UpgradeName)
         {
             case "Health":
-                increase = _baseStats.Health * upgrade.Value;
-                Stats.Health += increase;
+                increase = PlayerComponentManager.BaseStats.Health * upgrade.Value;
+                PlayerComponentManager.Stats.Health += increase;
                 break;
             case "Attack":
-                increase = _baseStats.Attack * upgrade.Value;
-                Stats.Attack += increase;
+                increase = PlayerComponentManager.BaseStats.Attack * upgrade.Value;
+                PlayerComponentManager.Stats.Attack += increase;
                 break;
             case "Speed":
-                increase = _baseStats.Speed * upgrade.Value;
-                Stats.Speed += increase;
+                increase = PlayerComponentManager.BaseStats.Speed * upgrade.Value;
+                PlayerComponentManager.Stats.Speed += increase;
                 break;
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,13 +13,26 @@ public class PlayerComponentManager : MonoBehaviour
 {
     [HideInInspector]
     public PlayerInputHandler InputHandler;
-    [HideInInspector]
+    public CameraController CameraController;
     public Rigidbody Rigidbody;
     public Transform PlayerModel;
     public Transform PlayerSpine;
+    [SerializeField]
+    [HideInInspector]
+    public PlayerStats BaseStats;
+    public PlayerStats Stats;
 
     void OnEnable()
     {
+        if (CameraController == null)
+        {
+            throw new NullReferenceException("CameraController not set for PlayerController.");
+        }
+        if (Stats == null)
+        {
+            Stats = (PlayerStats)BaseStats.Clone();
+        }
+
         InputHandler = GetComponent<PlayerInputHandler>();
         Rigidbody = GetComponent<Rigidbody>();
     }

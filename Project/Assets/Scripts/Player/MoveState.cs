@@ -26,7 +26,7 @@ public class MoveState : ControlState, IAttackHandler
     public Dictionary<string, IAbstractState> Neighbors { get; private set; } = new Dictionary<string, IAbstractState>();
     public IFiniteStateMachine.StateSetter StateSetter { get; private set; }
 
-    public MoveState(IFiniteStateMachine.StateSetter stateSetter, PlayerComponentManager playerComponentManager, CameraController cameraController, PlayerStats playerStats, LayerMask layerMask)
+    public MoveState(IFiniteStateMachine.StateSetter stateSetter, PlayerComponentManager playerComponentManager, LayerMask layerMask)
     {
         this._playerComponentManager = playerComponentManager;
         this._playerObject = playerComponentManager.gameObject;
@@ -34,15 +34,15 @@ public class MoveState : ControlState, IAttackHandler
         this._playerInputHandler = playerComponentManager.InputHandler;
         this._playerModel = playerComponentManager.PlayerModel;
         this._playerSpine = playerComponentManager.PlayerSpine; 
-        this._cameraController = cameraController;
-        this._playerStats = playerStats;
+        this._cameraController = playerComponentManager.CameraController;
+        this._playerStats = playerComponentManager.Stats;
         this._layerMask = layerMask;
         this.StateSetter = stateSetter;
     }
 
     public object Clone()
     {
-        MoveState moveState = new MoveState(StateSetter, _playerComponentManager, _cameraController, _playerStats, _layerMask);
+        MoveState moveState = new MoveState(StateSetter, _playerComponentManager, _layerMask);
         moveState._turnSmoothVelocity = _turnSmoothVelocity;
 
         return moveState;
@@ -61,9 +61,12 @@ public class MoveState : ControlState, IAttackHandler
         float y = velocity.y;
 
         //Move player model and its spine according to the camera
-        _playerModel.transform.rotation = Quaternion.Euler(0,  Camera.main.transform.rotation.eulerAngles.y, 0);
-        Quaternion lookRotation = Quaternion.LookRotation((Camera.main.transform.position + Camera.main.transform.forward * 10.0f) - _playerSpine.position);
-        _playerSpine.rotation = math.slerp(_playerSpine.rotation, lookRotation, 0.9f);
+        if (_playerModel != null)
+        {
+            _playerModel.transform.rotation = Quaternion.Euler(0, Camera.main.transform.rotation.eulerAngles.y, 0);
+            Quaternion lookRotation = Quaternion.LookRotation((Camera.main.transform.position + Camera.main.transform.forward * 10.0f) - _playerSpine.position);
+            _playerSpine.rotation = math.slerp(_playerSpine.rotation, lookRotation, 0.9f);
+        }
 
 
         // If the player is holding down a direction

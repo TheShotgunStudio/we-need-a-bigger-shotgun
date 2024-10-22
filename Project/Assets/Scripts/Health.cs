@@ -12,7 +12,7 @@ public class Health : MonoBehaviour
     {
         if (TryGetComponent(out PlayerController player))
         {
-            _maxHealth = player.Stats.Health;
+            _maxHealth = player.PlayerComponentManager.Stats.Health;
         }
         else if (TryGetComponent(out BasicEnemy enemy))
         {
