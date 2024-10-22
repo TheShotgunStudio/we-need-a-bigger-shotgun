@@ -295,7 +295,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PitchMultiplier: 0.1
   VolumeMultiplier: 0.01
-  SoundEffectObject: {fileID: 0}
+  SoundEffectObject: {fileID: 8349468522717782482, guid: 7ec8d5b8c25351641b99b6fc1f3af4d8,
+    type: 3}
 --- !u!1 &513198625
 GameObject:
   m_ObjectHideFlags: 3
@@ -7675,29 +7676,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 222675333554054194}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1427553063 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2454995619284430528, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
-    type: 3}
-  m_PrefabInstance: {fileID: 222675333554054194}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1427553072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1427553063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84fa52c43ef8bc94bb000c60e3b8a59c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CameraController: {fileID: 2021696971}
-  _baseStats: {fileID: 0}
-  GroundLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &1430200474
 GameObject:
   m_ObjectHideFlags: 3
@@ -8550,17 +8528,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 329203174644888542, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
+        type: 3}
+      propertyPath: MainCamera
+      value: 
+      objectReference: {fileID: 1884892309}
+    - target: {fileID: 1588733966431108910, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
+        type: 3}
+      propertyPath: CameraController
+      value: 
+      objectReference: {fileID: 2021696971}
     - target: {fileID: 3355232733475176219, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
         type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4699433248032248595, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
-        type: 3}
-      propertyPath: _baseStats
-      value: 
-      objectReference: {fileID: 11400000, guid: b1dec7f9c24582a4d8d2c2dff8237242,
-        type: 2}
     - target: {fileID: 4699433248032248595, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
         type: 3}
       propertyPath: CameraController
@@ -8616,20 +8598,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7545462788657134900, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
-        type: 3}
-      propertyPath: MainCamera
-      value: 
-      objectReference: {fileID: 1884892309}
-    m_RemovedComponents:
-    - {fileID: 7545462788657134900, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2454995619284430528, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1427553072}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
