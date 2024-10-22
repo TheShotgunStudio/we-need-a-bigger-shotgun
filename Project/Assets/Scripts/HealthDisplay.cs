@@ -54,9 +54,7 @@ public class HealthDisplay : MonoBehaviour
     /// <param name="healthLost">integer amount of health lost</param>
     public void LoseHealth(float healthLost) 
     {
-        Debug.Log(_redHealthWidth);
         _redHealthWidth = _redHealthWidth - (healthLost * (_startHealthWidth/_maxHealth));
-        Debug.Log(_redHealthWidth);
         if (_redHealthWidth >= _startHealthWidth){
             _redHealthWidth = _startHealthWidth;
         }

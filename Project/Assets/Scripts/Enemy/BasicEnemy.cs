@@ -15,7 +15,7 @@ public class BasicEnemy : MonoBehaviour
     public EnemyStats Stats;
     protected float AttackCooldown;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         Stats = (EnemyStats)_baseStats.Clone();
         AttackCooldown = 1f / Stats.AttackSpeed;

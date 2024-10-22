@@ -20,7 +20,6 @@ public class Health : MonoBehaviour
         {
             _maxHealth = enemy.Stats.Health;
         }
-        Debug.Log(HealthDisplayObj);
         if(HealthDisplayObj != null) {
             HealthDisplayObj.SetMaxHealth(_maxHealth);
         }
