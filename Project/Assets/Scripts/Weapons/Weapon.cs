@@ -8,7 +8,15 @@ public abstract class Weapon : MonoBehaviour
     private WeaponStats _baseStats;
     [HideInInspector]
     public WeaponStats Stats;
-    public abstract void Shoot();
+    protected abstract void Shoot(Rigidbody playerRigidbody, CameraController cameraController);
+    public abstract bool CanAttack();
+    public void TryShoot(Rigidbody playerRigidbody, CameraController cameraController)
+    {
+        if (CanAttack())
+        {
+            Shoot(playerRigidbody, cameraController);
+        }
+    }
 
     private void Start()
     {

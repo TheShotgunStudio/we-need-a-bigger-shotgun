@@ -21,7 +21,7 @@ public class MoveState : ControlState, IAttackHandler, IJumpHandler
     private Transform _playerSpine;
 
     private float _turnSmoothVelocity;
-    private float _playerHeight = 0.8F;
+    private float _playerHeight;
 
     /// <summary>
     /// How many frames the player has been touching the ground for
@@ -41,7 +41,7 @@ public class MoveState : ControlState, IAttackHandler, IJumpHandler
     public Dictionary<string, IAbstractState> Neighbors { get; private set; } = new Dictionary<string, IAbstractState>();
     public IFiniteStateMachine.StateSetter StateSetter { get; private set; }
 
-    public MoveState(IFiniteStateMachine.StateSetter stateSetter, PlayerComponentManager playerComponentManager, CameraController cameraController, PlayerStats playerStats, LayerMask layerMask)
+    public MoveState(IFiniteStateMachine.StateSetter stateSetter, PlayerComponentManager playerComponentManager, CameraController cameraController, PlayerStats playerStats, float playerHeight, LayerMask layerMask)
     {
         this._playerComponentManager = playerComponentManager;
         this._playerObject = playerComponentManager.gameObject;
@@ -51,13 +51,14 @@ public class MoveState : ControlState, IAttackHandler, IJumpHandler
         this._playerSpine = playerComponentManager.PlayerSpine; 
         this._cameraController = cameraController;
         this._playerStats = playerStats;
+        this._playerHeight = playerHeight;
         this._layerMask = layerMask;
         this.StateSetter = stateSetter;
     }
 
     public object Clone()
     {
-        MoveState moveState = new MoveState(StateSetter, _playerComponentManager, _cameraController, _playerStats, _layerMask);
+        MoveState moveState = new MoveState(StateSetter, _playerComponentManager, _cameraController, _playerStats, _playerHeight, _layerMask);
         moveState._turnSmoothVelocity = _turnSmoothVelocity;
 
         return moveState;
@@ -182,8 +183,10 @@ public class MoveState : ControlState, IAttackHandler, IJumpHandler
 
     public void OnAttackInput(InputValue value)
     {
-        // Set the rigidbody velocity opposite the camera directions
-        _playerRigidbody.velocity -= _cameraController.CameraFollowTarget.transform.forward * 15.0F;
+        if (_playerComponentManager.Weapon != null)
+        {
+            _playerComponentManager.Weapon.TryShoot(_playerRigidbody, _cameraController);
+        }
     }
 
     public void OnJumpInput(InputValue value)

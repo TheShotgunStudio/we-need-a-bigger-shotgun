@@ -6,9 +6,7 @@ using UnityEngine.VFX;
 
 public class Shotgun : Weapon
 {
-    public Transform MainCamera;
     public Transform ExplosionPosition;
-    public Transform PlayerRigidbody;
 
     public AudioClip ShotgunShot;
     public AudioClip ShotgunReload;
@@ -21,20 +19,15 @@ public class Shotgun : Weapon
     void Update()
     {
         _reloadTimer.Tick();
-
-        if (Input.GetMouseButton(0) && _reloadTimer.IsFinished())
-        {
-            Shoot();
-        }
     }
 
-    public override void Shoot()
+    protected override void Shoot(Rigidbody playerRigidbody, CameraController cameraController)
     {
         _reloadTimer.Start(Stats.ReloadTime);
-        PlayerRigidbody.GetComponent<Rigidbody>().velocity -= MainCamera.transform.forward * Stats.RecoilStrength;
-        SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
+        playerRigidbody.velocity -= cameraController.CameraFollowTarget.transform.forward.normalized * Stats.RecoilStrength;
+        //SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
         StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));
-        SoundEffectManager.Instance.PlaySoundNoPitchDelayed(ShotgunReload, ExplosionPosition, 1.0f, 1.0f);
+        //SoundEffectManager.Instance.PlaySoundNoPitchDelayed(ShotgunReload, ExplosionPosition, 1.0f, 1.0f);
         StartCoroutine(SpawnParticleEffectAfterDelay(ShotgunReloadVFX, ExplosionPosition, 1.0f, 2.0f));
     }
 
@@ -53,5 +46,10 @@ public class Shotgun : Weapon
         GameObject vfx_effect = Instantiate(effect, ExplosionPosition);
         vfx_effect.GetComponent<VisualEffect>().Play();
         Destroy(vfx_effect, destroyDelay);
+    }
+
+    public override bool CanAttack()
+    {
+        return _reloadTimer.IsFinished();
     }
 }

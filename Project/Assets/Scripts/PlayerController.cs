@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
     private PlayerStats _baseStats;
     public PlayerStats Stats { get; private set; }
 
+    public float PlayerHeight = 0.0F;
+
     /// <summary>
     /// A list of layers this player controller will treat as ground/terrain
     /// </summary>
@@ -64,7 +66,7 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
         // Initialize state dictionary
         States = new Dictionary<string, IAbstractState>()
         {
-            { "Movable", new MoveState(stateSetter, PlayerComponentManager, CameraController, Stats, GroundLayerMask) }
+            { "Movable", new MoveState(stateSetter, PlayerComponentManager, CameraController, Stats, PlayerHeight, GroundLayerMask) }
         };
 
         // Activate state machine by setting the default state
