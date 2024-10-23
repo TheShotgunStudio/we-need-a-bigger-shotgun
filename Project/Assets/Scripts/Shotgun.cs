@@ -19,13 +19,13 @@ public class Shotgun : MonoBehaviour
     public GameObject ShotgunReloadVFX;
     public GameObject ShotgunMuzzleVFX;
 
-
-    private Timer _reloadTimer = new Timer();
+    [HideInInspector]
+    public Timer ReloadTimer = new Timer();
 
     void Update(){
-        _reloadTimer.Tick();
+        ReloadTimer.Tick();
 
-        if(Input.GetMouseButton(0) && _reloadTimer.IsFinished()){
+        if(Input.GetMouseButton(0) && ReloadTimer.IsFinished()){
             Shoot();
         }
     }
@@ -40,7 +40,7 @@ public class Shotgun : MonoBehaviour
     }
 
     private void Shoot(){
-            _reloadTimer.Start(ReloadTime);
+            ReloadTimer.Start(ReloadTime);
             PlayerRigidbody.GetComponent<Rigidbody>().velocity -= MainCamera.transform.forward * RecoilForce;
             SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
             StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));

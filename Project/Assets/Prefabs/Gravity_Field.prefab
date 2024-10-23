@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 5760018547105719467}
   - component: {fileID: 8134815063538192230}
   - component: {fileID: 1008753213116494363}
-  m_Layer: 0
-  m_Name: gravity_field
+  m_Layer: 2
+  m_Name: Gravity_Field
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,6 +123,7 @@ MonoBehaviour:
   Priority: 0
   GravityFacingDirection: 5
   GravityStrength: 9.80665
+  GravityForce: {x: 0, y: 0, z: 0}
   RecalculateGravityDirection: 0
 --- !u!114 &1008753213116494363
 MonoBehaviour:
