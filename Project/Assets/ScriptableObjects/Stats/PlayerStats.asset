@@ -22,3 +22,4 @@ MonoBehaviour:
   CritDamage: 1.5
   Drag: 15
   SpeedCap: 30
+  ModelHeight: 2.4

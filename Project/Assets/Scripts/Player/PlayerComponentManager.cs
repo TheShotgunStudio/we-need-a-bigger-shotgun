@@ -14,6 +14,9 @@ public class PlayerComponentManager : MonoBehaviour
     public PlayerInputHandler InputHandler;
     [HideInInspector]
     public Rigidbody Rigidbody;
+    [HideInInspector]
+    public Weapon Weapon;
+
     public Transform PlayerModel;
     public Transform PlayerSpine;
 
@@ -21,5 +24,6 @@ public class PlayerComponentManager : MonoBehaviour
     {
         InputHandler = GetComponent<PlayerInputHandler>();
         Rigidbody = GetComponent<Rigidbody>();
+        Weapon = GetComponent<Weapon>();
     }
 }
