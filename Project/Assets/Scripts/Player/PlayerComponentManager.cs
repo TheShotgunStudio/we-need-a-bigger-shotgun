@@ -14,9 +14,11 @@ public class PlayerComponentManager : MonoBehaviour
     public PlayerInputHandler InputHandler;
     [HideInInspector]
     public Rigidbody Rigidbody;
+    [HideInInspector]
+    public Weapon Weapon;
+
     public Transform PlayerModel;
     public Transform PlayerSpine;
-    public Weapon Weapon;
 
     void OnEnable()
     {
