@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
 public enum SpreadType
 {
     FIXED,
-    RANDOM
+    RANDOM,
+    NONE
 }
 public class WeaponHitDetection : MonoBehaviour
 {
-    [Tooltip("Type of bullet spread: \nFixed spread creates a circle of ")]
+    [Tooltip("Type of bullet spread: \nFixed spread creates a circle of pellets around one perfectly accurate pellet. \nRandom will create a random spread of pellets around one perfectly accurate pellet.\nNone will create one pellet that is perfectly accurate.")]
     public SpreadType SpreadType;
 
     [Tooltip("Spread angle (In Percent) \nDetermines how much the bullet spread is.")]
@@ -30,7 +32,7 @@ public class WeaponHitDetection : MonoBehaviour
     /// <summary>
     /// Casts a ray from the camera to the crosshair to determine what the crosshair is pointing at
     /// </summary>
-    /// <returns>The </returns>
+    /// <returns>The impact Point in World space. The Ray's direction if the ray hit nothing</returns>
     public Vector3 CrosshairToGunTarget()
     {
         Ray ray = MainCamera.ScreenPointToRay(Crosshair.position);
@@ -39,42 +41,60 @@ public class WeaponHitDetection : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             return hit.point;
-            
         }
         return ray.direction;
     }
 
-    
+    /// <summary>
+    /// Will determine a bullet spread for the gun based on how many pellets it shoots. 
+    /// It will put one pellet in the middle, and then a ring of pellets around it. 
+    /// </summary>
+    /// <param name="bulletOriginPoint">The point from which the bullet will originate. generally should be the end of a gun. </param>
+    /// <param name="gunTarget">The point the crosshair is aiming at</param>
+    /// <param name="pelletCount"> the amount of pellets the gun will fire a once</param>
+    /// <param name="spreadAngle">The spread angle. Default is 10.</param>
+    /// <returns>A list of Vector3 that comprises the direction of each shot</returns>
     public List<Vector3> DetermineFixedSpreadDirection(Vector3 bulletOriginPoint, Vector3 gunTarget, int pelletCount, float spreadAngle = 10)
     {
-        float normalizedSpreadAngle = spreadAngle / 100;
         List<Vector3> spreadPattern = new List<Vector3>();
-        Vector3 direction = (gunTarget - bulletOriginPoint).normalized;
-        spreadPattern.Add(direction);
+        float normalizedSpreadAngle = spreadAngle / 100;
+        Debug.Log(normalizedSpreadAngle);
 
-        float distance = Vector3.Distance(bulletOriginPoint, gunTarget);
+        Vector3 baseDirection = (gunTarget - bulletOriginPoint).normalized;
+        spreadPattern.Add(baseDirection);
 
-        float radius = distance * normalizedSpreadAngle;
+        Vector3 right = Vector3.Cross(baseDirection, Vector3.up).normalized;
+        Vector3 up = Vector3.up;
 
         for (int i = 0; i < pelletCount-1; i++)
         {
-            float angle = i * (360f / pelletCount);
-
+            float angle = i * (360f / (pelletCount-1));
             float radians = angle * Mathf.Deg2Rad;
 
-            Vector3 offset = new Vector3(Mathf.Cos(radians), 0, Mathf.Sin(radians)) * radius;
+            Vector3 deviation = (right * Mathf.Cos(radians) + up * Mathf.Sin(radians)) * normalizedSpreadAngle;
 
-            Vector3 newPosition = gunTarget + offset;
+            Vector3 adjustedDirection = (baseDirection + deviation).normalized;
 
-            spreadPattern.Add(newPosition);
+            // Add the adjusted direction to the result list
+            spreadPattern.Add(adjustedDirection);
         }
 
         return spreadPattern;
-    }
 
+
+    }
+    /// <summary>
+    /// Will determine a bullet spread for the gun based on how many pellets it shoots. 
+    /// Will put one pellet in the middle, then randomly deviate the other pellets
+    /// </summary>
+    /// <param name="bulletOriginPoint">The point from which the bullet will originate. generally should be the end of a gun. </param>
+    /// <param name="gunTarget">The point the crosshair is aiming at</param>
+    /// <param name="pelletCount"> the amount of pellets the gun will fire a once</param>
+    /// <param name="spreadAngle">The spread angle. Default is 10.</param>
+    /// <returns>A list of Vector3 that comprises the direction of each shot</returns>
     public List<Vector3> DetermineRandomSpreadPattern(Vector3 bulletOriginPoint, Vector3 gunTarget, int pelletCount, float spreadAngle = 10)
     {
-        float normalizedSpreadAngle = spreadAngle / 100;
+        float normalizedSpreadAngle = spreadAngle / 500;
         List<Vector3> spreadPattern = new List<Vector3>();
         Vector3 direction = (gunTarget - bulletOriginPoint).normalized;
         spreadPattern.Add(direction);
@@ -91,6 +111,19 @@ public class WeaponHitDetection : MonoBehaviour
         }
         return spreadPattern;
     }
+    /// <summary>
+    /// Will return a bullet spread pattern. It consists of only one perfectly accurate bullet. Generally only used for testing.
+    /// </summary>
+    /// <param name="bulletOriginPoint">The point from which the bullet will originate. generally should be the end of a gun. </param>
+    /// <param name="gunTarget">The point the crosshair is aiming at</param>
+    /// <returns>A list of Vector 3. which will only contain one Vector3. a perfectly accurate one.</returns>
+    public List<Vector3> NoSpreadPattern(Vector3 bulletOriginPoint, Vector3 gunTarget)
+    {
+        List<Vector3> spreadPattern = new List<Vector3>();
+        var direction = (gunTarget - bulletOriginPoint).normalized;
+        spreadPattern.Add(direction);
+        return spreadPattern;
+    }
 
     public List<RaycastHit> DeterminePelletHits(List<Vector3> spreadPattern, Transform bulletOriginPoint)
     {
@@ -104,15 +137,24 @@ public class WeaponHitDetection : MonoBehaviour
         return hits;
     }
 
+    
+    /// <summary>
+    /// Intended to be used to trigger whatever the intended effect is whenever a bullet hits an object. 
+    /// I.E. Enemies will take damage, Explosive barrels will explode, Etc. 
+    /// No convention exists for this yet. so it is empty aside from a debug shot indicator function.
+    /// </summary>
+    /// <param name="target">A bullet that hit something.</param>
     public void DoOnBulletHitAction(RaycastHit target)
     {
+        //Creates a "DebugPelletHitIndicator" wherever the bullet hits. Was used in testing. Is disabled but left in for convenience. 
         Instantiate(DebugPelletHitIndicator, target.point, Quaternion.identity);
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if (Input.GetMouseButton(0)&& Weapon.ReloadTimer.IsFinished())
+        //
+        if (Input.GetMouseButton(0))//&& Weapon.ReloadTimer.IsFinished())
         {
             Vector3 gunTarget = CrosshairToGunTarget();
             List<Vector3> spreadPattern;
@@ -124,10 +166,14 @@ public class WeaponHitDetection : MonoBehaviour
             {
                 spreadPattern = DetermineFixedSpreadDirection(BulletOriginPoint.position, gunTarget, 9);
             }
+            else if(SpreadType == SpreadType.NONE)
+            {
+                spreadPattern = NoSpreadPattern(BulletOriginPoint.position, gunTarget);
+            }
             else
             {
-                Debug.LogError("Unknown Spread Type. Falling back to random");
-                spreadPattern = DetermineRandomSpreadPattern(BulletOriginPoint.position, gunTarget, 9);
+                Debug.LogError("Unknown Spread Type. No spread will be added");
+                spreadPattern = NoSpreadPattern(BulletOriginPoint.position, gunTarget);
             }
             var hits = DeterminePelletHits(spreadPattern, BulletOriginPoint);
 
