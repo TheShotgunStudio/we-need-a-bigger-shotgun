@@ -478,16 +478,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2454995619284430528}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1c019dae515ab546a3eda046b0710fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _baseStats: {fileID: 11400000, guid: c10347b4e78613748ac04dbed3ce267e, type: 2}
+  Stats: {fileID: 0}
   MainCamera: {fileID: 0}
   ExplosionPosition: {fileID: 2545557389485610500}
   PlayerRigidbody: {fileID: 1549866860212564314}
-  RecoilForce: 25
-  ReloadTime: 2.5
   ShotgunShot: {fileID: 8300000, guid: c2ca2e8d6fe141a44aef6097a677e124, type: 3}
   ShotgunReload: {fileID: 8300000, guid: 12a7442cd6df28f47a0196244edb4d9f, type: 3}
   ShotgunReloadVFX: {fileID: 1353141561521026605, guid: 34cbd754083b06c49b1e0036df2bd0d4,

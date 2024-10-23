@@ -8,6 +8,7 @@ public class PickUp : MonoBehaviour
     private GameObject _item;
     [SerializeField]
     private Transform _visual;
+    private bool _pickUpIsAvailable = true;
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class PickUp : MonoBehaviour
 
     private IEnumerator PickUpFloatingAnimation()
     {
-        while (true)
+        while (_pickUpIsAvailable)
         {
             _visual.Rotate(Vector3.up, 60 * Time.deltaTime, Space.World);
             _visual.localPosition = new Vector3(0, 5 + Mathf.Sin(Time.time) * 0.5f, 0);
@@ -26,7 +27,14 @@ public class PickUp : MonoBehaviour
 
     private void OnPickUp(PlayerController player)
     {
+        // Temporary solution, will implement proper system once we have a weapon system
+        if (player.gameObject.GetComponent<Shotgun>() == null) return;
+        
+        player.gameObject.GetComponent<Shotgun>().enabled = true;
+
         // Assign item to player
+        _pickUpIsAvailable = false;
+        Destroy(_item);
     }
 
     private void OnTriggerEnter(Collider other)

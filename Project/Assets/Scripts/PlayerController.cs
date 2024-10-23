@@ -36,21 +36,25 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
         SetState(States[stateKey]);
     }
 
+    void Awake() { // make sure the state are initiated when needed
+        if (Stats == null)
+        {
+            Stats = (PlayerStats)_baseStats.Clone();
+        }
+    }
+
     void Start()
     {
         if (CameraController == null)
         {
             throw new NullReferenceException("CameraController not set for PlayerController.");
         }
-        if (Stats == null)
-        {
-            Stats = (PlayerStats)_baseStats.Clone();
-        }
-
+        
         PlayerComponentManager = GetComponent<PlayerComponentManager>();
         InitializeStates();
 
         PlayerComponentManager.InputHandler.OnAttackDelegates.Add((value) => OnAttackInput(value));
+        PlayerComponentManager.InputHandler.OnJumpDelegates.Add((value) => OnJumpInput(value));
     }
 
     public void InitializeStates()
@@ -60,7 +64,7 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
         // Initialize state dictionary
         States = new Dictionary<string, IAbstractState>()
         {
-            { "Movable", new MoveState(stateSetter, PlayerComponentManager, CameraController, Stats) }
+            { "Movable", new MoveState(stateSetter, PlayerComponentManager, CameraController, Stats, GroundLayerMask) }
         };
 
         // Activate state machine by setting the default state
@@ -84,7 +88,13 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
         if (CurrentState is not IAttackHandler) return;
         ((IAttackHandler)CurrentState).OnAttackInput(value);
     }
-    
+
+    public void OnJumpInput(InputValue value)
+    {
+        if (CurrentState is not IJumpHandler) return;
+        ((IJumpHandler)CurrentState).OnJumpInput(value);
+    }
+
     public void ApplyUpgrade(UpgradeData upgrade)
     {
         float increase;
