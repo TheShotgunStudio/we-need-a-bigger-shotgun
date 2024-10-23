@@ -28,19 +28,10 @@ public class Shotgun : Weapon
         }
     }
 
-
-    void FixedUpdate()
-    {
-        /**
-            Might be necessary for the rigidbody physics I just didn't want to put the timer ticker here 
-            because it might cause some weird stuff to happen. This ticks at a solid 60 fps while update goes much faster.
-        **/
-    }
-
     public override void Shoot()
     {
         _reloadTimer.Start(Stats.ReloadTime);
-        PlayerRigidbody.GetComponent<Rigidbody>().velocity -= MainCamera.transform.forward * Stats.RecoilForce;
+        PlayerRigidbody.GetComponent<Rigidbody>().velocity -= MainCamera.transform.forward * Stats.RecoilStrength;
         SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
         StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));
         SoundEffectManager.Instance.PlaySoundNoPitchDelayed(ShotgunReload, ExplosionPosition, 1.0f, 1.0f);

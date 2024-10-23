@@ -9,5 +9,5 @@ public class WeaponStats : Stats
     public float ReloadTime;
     public float Range;
     public float DamageDropoffRange;
-    public float RecoilForce;
+    public float RecoilStrength;
 }

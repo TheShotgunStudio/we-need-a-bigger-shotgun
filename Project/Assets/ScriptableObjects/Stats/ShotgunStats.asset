@@ -19,4 +19,4 @@ MonoBehaviour:
   ReloadTime: 2.5
   Range: 0
   DamageDropoffRange: 0
-  RecoilForce: 25
+  RecoilStrength: 25
