@@ -41,7 +41,7 @@ public class Shotgun : Weapon
     }
 
     
-    void Shoot()
+    public override void Shoot()
     {
         Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_crosshairSize * 2.0f, _crosshairSize * 2.0f);
         ReloadTimer.Start(Stats.ReloadTime);
