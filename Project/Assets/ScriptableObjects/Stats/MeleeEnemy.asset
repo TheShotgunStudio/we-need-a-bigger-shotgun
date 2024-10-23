@@ -9,16 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b591b1ff014d8144fb3e137d21928547, type: 3}
-  m_Name: PlayerStats
+  m_Script: {fileID: 11500000, guid: 6d992275898a67348b2e4e1e96d52eaf, type: 3}
+  m_Name: MeleeEnemy
   m_EditorClassIdentifier: 
-  Health: 100
-  Attack: 20
-  Speed: 6
-  Acceleration: 1
-  TurnTime: 0.1
-  AirTurning: 7
-  CritRate: 0
-  CritDamage: 1.5
-  Drag: 15
-  SpeedCap: 30
+  Health: 20
+  Attack: 0
+  Speed: 5
+  Acceleration: 20
+  AttackSpeed: 0.5
+  AttackRange: 0
+  ColliderDamage: 0

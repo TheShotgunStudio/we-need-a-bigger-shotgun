@@ -29,10 +29,11 @@ public class StaticGravityField : MonoBehaviour
     [Tooltip("Gravity strength, Defaults to 1G (9.80665)")]
     public float GravityStrength = 9.80665f;
 
-    private Vector3 _gravityForceDirection;
+    [HideInInspector]
+    public Vector3 GravityForce;
 
     [Tooltip("Press this button while the game is running to recalculate the gravity direction.")]
-    [InspectorButton(nameof(ReassignGravityForceDirection), ButtonWidth = 200)]
+    [InspectorButton(nameof(ReassignGravityForce), ButtonWidth = 200)]
     public bool RecalculateGravityDirection;
 
     private void OnDrawGizmos()
@@ -46,43 +47,51 @@ public class StaticGravityField : MonoBehaviour
             Gizmos.DrawLine(Vector3.zero, Vector3.down);
         }
     }
-    private void ReassignGravityForceDirection()
+    private void ReassignGravityForce()
     {
         if (!Application.isPlaying) return;
-        this._gravityForceDirection = DetermineGravityForceDirection();
-        Color fieldFill = PickColorBasedOnDirection();
-        MeshRenderer debugRenderer = GetComponent<MeshRenderer>();
-        Material tempMaterial = new Material(debugRenderer.material);
-        tempMaterial.color = fieldFill;
-        debugRenderer.material = tempMaterial;
+        this.GravityForce = DetermineGravityForce();
+        if (gameObject.TryGetComponent(out MeshRenderer debugRenderer))
+        {
+            Color fieldFill = PickColorBasedOnDirection();
+            Material tempMaterial = new Material(debugRenderer.material);
+            tempMaterial.color = fieldFill;
+            debugRenderer.material = tempMaterial;
+        }
     }
     private void Awake()
     {
-        Color fieldFill = PickColorBasedOnDirection();
         //set gravity force direction
-        _gravityForceDirection = DetermineGravityForceDirection();
+        GravityForce = DetermineGravityForce();
         //make debug renderer
-        MeshRenderer debugRenderer = GetComponent<MeshRenderer>();
-        Material tempMaterial = new Material(debugRenderer.material);
-        tempMaterial.color = fieldFill;
-        debugRenderer.material = tempMaterial;
-        Debug.Log($"{gameObject.name} Gravity force direction: {_gravityForceDirection}");
-    }
-    private void Start()
-    {
-        
+        if (gameObject.TryGetComponent(out MeshRenderer debugRenderer))
+        {
+            Color fieldFill = PickColorBasedOnDirection();
+            Material tempMaterial = new Material(debugRenderer.material);
+            tempMaterial.color = fieldFill;
+            debugRenderer.material = tempMaterial;
+        }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        Rigidbody rb = other.GetComponent<Rigidbody>();
-        rb.AddForce(_gravityForceDirection);
+        if (other.TryGetComponent(out GravityManager gravityManager))
+        {
+            gravityManager.GravityFields.Add(this);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent(out GravityManager gravityManager))
+        {
+            gravityManager.GravityFields.Remove(this);
+        }
     }
     /// <summary>
     /// Determines the Direction in which gravity will pull its player.
     /// </summary>
     /// <returns>A Vector3 That is to be used as a direction </returns>
-    private Vector3 DetermineGravityForceDirection()
+    private Vector3 DetermineGravityForce()
     {
         if (Mode == GravityMode.CARDINAL)
         {
