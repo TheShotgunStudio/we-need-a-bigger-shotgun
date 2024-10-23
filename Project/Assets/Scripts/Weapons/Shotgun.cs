@@ -4,13 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class Shotgun : MonoBehaviour
+public class Shotgun : Weapon
 {
-    public Transform MainCamera;   
     public Transform ExplosionPosition;
-    public Transform PlayerRigidbody;
-    public int RecoilForce = 0;
-    public float ReloadTime = 0.0f;
 
     public AudioClip ShotgunShot;
     public AudioClip ShotgunReload;
@@ -21,15 +17,14 @@ public class Shotgun : MonoBehaviour
     private float _crosshairSize = 100.0f;
     private float _currentCrosshairSize = 100.0f;
 
-    private Timer _reloadTimer = new Timer();
+    [HideInInspector]
+    public Timer ReloadTimer = new();
 
-    void Update(){
-        _reloadTimer.Tick();
+    void Update()
+    {
+        ReloadTimer.Tick();
 
-        if(Input.GetMouseButton(0) && _reloadTimer.IsFinished()){
-            Shoot();
-        }
-
+        if (Crosshair == null) return;
         if(Crosshair.GetComponent<RectTransform>().sizeDelta.x != _crosshairSize){
             _currentCrosshairSize = Crosshair.GetComponent<RectTransform>().sizeDelta.x;
             _currentCrosshairSize = Mathf.Lerp(_currentCrosshairSize, _crosshairSize, Time.deltaTime);
@@ -37,23 +32,29 @@ public class Shotgun : MonoBehaviour
         }
     }
 
-    
-    void FixedUpdate()
+    public override bool CanShoot()
     {
-        /**
-            Might be necessary for the rigidbody physics I just didn't want to put the timer ticker here 
-            because it might cause some weird stuff to happen. This ticks at a solid 60 fps while update goes much faster.
-        **/
+        return Input.GetMouseButton(0) && ReloadTimer.IsFinished();
     }
-
-    private void Shoot(){
-            _reloadTimer.Start(ReloadTime);
+    
+    protected override void Shoot(Rigidbody playerRigidbody, CameraController cameraController)
+    {
+        ReloadTimer.Start(Stats.ReloadTime);
+        playerRigidbody.velocity -= cameraController.CameraFollowTarget.transform.forward * Stats.RecoilStrength;
+        if (Crosshair != null)
+        {
             Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_crosshairSize * 2.0f, _crosshairSize * 2.0f);
-            PlayerRigidbody.GetComponent<Rigidbody>().velocity -= MainCamera.transform.forward * RecoilForce;
+        }
+        if (SoundEffectManager.Instance != null)
+        {
             SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
-            StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));
             SoundEffectManager.Instance.PlaySoundNoPitchDelayed(ShotgunReload, ExplosionPosition, 1.0f, 1.0f);
+        }
+        if (ShotgunMuzzleVFX != null && ShotgunReloadVFX != null)
+        {
+            StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));
             StartCoroutine(SpawnParticleEffectAfterDelay(ShotgunReloadVFX, ExplosionPosition, 1.0f, 2.0f));
+        }
     }
 
 

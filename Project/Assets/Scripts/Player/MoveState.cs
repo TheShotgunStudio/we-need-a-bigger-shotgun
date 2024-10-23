@@ -21,7 +21,6 @@ public class MoveState : ControlState, IAttackHandler, IJumpHandler
     private Transform _playerSpine;
 
     private float _turnSmoothVelocity;
-    private float _playerHeight = 0.8F;
 
     /// <summary>
     /// How many frames the player has been touching the ground for
@@ -171,7 +170,7 @@ public class MoveState : ControlState, IAttackHandler, IJumpHandler
 
     public bool IsGrounded(Vector3 position)
     {
-        return Physics.Raycast(position, Vector3.down, _playerHeight * 0.5F, _layerMask);
+        return Physics.Raycast(position, Vector3.down, _playerStats.ModelHeight * 0.5F, _layerMask);
     }
 
     public void OnStateProcessing()
@@ -182,8 +181,8 @@ public class MoveState : ControlState, IAttackHandler, IJumpHandler
 
     public void OnAttackInput(InputValue value)
     {
-        // Set the rigidbody velocity opposite the camera directions
-        _playerRigidbody.velocity -= _cameraController.CameraFollowTarget.transform.forward * 15.0F;
+        if (_playerComponentManager.Weapon == null) return;
+        _playerComponentManager.Weapon.TryShoot(_playerRigidbody, _cameraController);
     }
 
     public void OnJumpInput(InputValue value)
