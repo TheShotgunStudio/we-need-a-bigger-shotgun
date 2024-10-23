@@ -34,9 +34,10 @@ public class HealthDisplay : MonoBehaviour
     void Update() {
         this.gameObject.transform.LookAt(CameraToTrack.transform.position);
         _widthDifference = _whiteHealthWidth - _redHealthWidth;
+        
         if (_widthDifference > 0)
         {
-            _whiteHealthWidth = _whiteHealthWidth - (_widthDifference * DepletionStepPercentage/10);
+            _whiteHealthWidth = _whiteHealthWidth - ((_widthDifference + DepletionStepPercentage) * DepletionStepPercentage/10);
             WhiteHealth.sizeDelta = new Vector2(_whiteHealthWidth , 0);
         }
     }

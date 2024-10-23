@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
         {
             Destroy(this.gameObject);
             if (other.TryGetComponent<Health>(out Health healthScript)) {
-                healthScript.TakeDamage(5); // TODO change to use stats Currently 1 damage
+                healthScript.TakeDamage(5); // TODO change to use stats Currently 5 damage
             }
         } else if (other.gameObject.CompareTag("Ground") 
                 || other.gameObject.CompareTag("Wall")) 
