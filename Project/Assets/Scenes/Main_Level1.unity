@@ -2381,6 +2381,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78695a804cf0f1f4ba6522d6656c7662, type: 3}
+--- !u!114 &271772328 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7502871703680384391, guid: f2e345975cb9fc7499e246612c699e21,
+    type: 3}
+  m_PrefabInstance: {fileID: 1385524111}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bccb2354a849c044a812d12cf48cadb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &274324261
 Mesh:
   m_ObjectHideFlags: 0
@@ -14079,6 +14091,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UpgradeMachine
       objectReference: {fileID: 0}
+    - target: {fileID: 7502871703680384391, guid: f2e345975cb9fc7499e246612c699e21,
+        type: 3}
+      propertyPath: UpgradeDisplay
+      value: 
+      objectReference: {fileID: 1802758659}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14527,7 +14544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5d6039027882045ba9fc70e8052915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpgradeDisplay: {fileID: 0}
+  UpgradeMachine: {fileID: 0}
   Enemies:
   - {fileID: 398485434}
   Doors:
@@ -16397,7 +16414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5d6039027882045ba9fc70e8052915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpgradeDisplay: {fileID: 0}
+  UpgradeMachine: {fileID: 271772328}
   Enemies:
   - {fileID: 1961999602}
   - {fileID: 2025397976}
@@ -17172,7 +17189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5d6039027882045ba9fc70e8052915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpgradeDisplay: {fileID: 0}
+  UpgradeMachine: {fileID: 0}
   Enemies:
   - {fileID: 1573407247}
   - {fileID: 535613756}
@@ -17767,7 +17784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5d6039027882045ba9fc70e8052915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpgradeDisplay: {fileID: 0}
+  UpgradeMachine: {fileID: 0}
   Enemies:
   - {fileID: 337902708}
   Doors:
@@ -18500,6 +18517,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1802758659 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8085805545787153665, guid: 670a93efb17c7824887d1f9b2cfe3471,
+    type: 3}
+  m_PrefabInstance: {fileID: 1097498892}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5981d54a040eb4ba3ee08cf093dd7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1817654434
 Mesh:
   m_ObjectHideFlags: 0

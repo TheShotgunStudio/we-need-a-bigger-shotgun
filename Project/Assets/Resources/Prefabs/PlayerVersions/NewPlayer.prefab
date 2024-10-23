@@ -903,6 +903,37 @@ Transform:
   - {fileID: 5497578789608777366}
   m_Father: {fileID: 4964924014657265063}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2833362838220595638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8610090882122084058}
+  m_Layer: 2
+  m_Name: InteractionPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8610090882122084058
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2833362838220595638}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.493, z: 0.725}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4156175201858052029}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3212521886872151747
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,6 +984,7 @@ GameObject:
   - component: {fileID: 7867276941029375814}
   - component: {fileID: 3354129472989121696}
   - component: {fileID: 4489516485603324412}
+  - component: {fileID: 498212367941690106}
   m_Layer: 2
   m_Name: Character
   m_TagString: Player
@@ -974,6 +1006,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6053452407907196681}
+  - {fileID: 8610090882122084058}
   m_Father: {fileID: 5784359466819855394}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2455848833424390140
@@ -1153,6 +1186,23 @@ MonoBehaviour:
   ShotgunMuzzleVFX: {fileID: 5959809751551950536, guid: 1c97cb654709afd418a5215ba71131e1,
     type: 3}
   Crosshair: {fileID: 0}
+--- !u!114 &498212367941690106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264426100513807309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38c6b7fc76d2f2a418146d37105d5852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactionPoint: {fileID: 8610090882122084058}
+  _interactionPointRadius: 0.5
+  _interactableMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &3500695957244227003
 GameObject:
   m_ObjectHideFlags: 0
