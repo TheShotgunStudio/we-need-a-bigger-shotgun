@@ -21,7 +21,7 @@ public class MoveState : ControlState, IAttackHandler, IJumpHandler
     private Transform _playerSpine;
 
     private float _turnSmoothVelocity;
-    private float _playerHeight = 2.2F;
+    private float _playerHeight = 0.8F;
 
     /// <summary>
     /// How many frames the player has been touching the ground for
