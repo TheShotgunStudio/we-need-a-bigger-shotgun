@@ -19,12 +19,15 @@ public class Shotgun : Weapon
     private float _crosshairSize = 100.0f;
     private float _currentCrosshairSize = 100.0f;
 
-    private Timer _reloadTimer = new ();
+    [HideInInspector]
+    public Timer ReloadTimer = new();
 
-    void Update(){
-        _reloadTimer.Tick();
+    void Update()
+    {
+        ReloadTimer.Tick();
 
-        if(Input.GetMouseButton(0) && _reloadTimer.IsFinished()){
+        if (Input.GetMouseButton(0) && ReloadTimer.IsFinished())
+        {
             Shoot();
         }
 
@@ -35,14 +38,16 @@ public class Shotgun : Weapon
         }
     }
 
-    public override void Shoot(){
-            _reloadTimer.Start(Stats.ReloadTime);
-            Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_crosshairSize * 2.0f, _crosshairSize * 2.0f);
-            PlayerRigidbody.GetComponent<Rigidbody>().velocity -= MainCamera.transform.forward * Stats.RecoilStrength;
-            SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
-            StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));
-            SoundEffectManager.Instance.PlaySoundNoPitchDelayed(ShotgunReload, ExplosionPosition, 1.0f, 1.0f);
-            StartCoroutine(SpawnParticleEffectAfterDelay(ShotgunReloadVFX, ExplosionPosition, 1.0f, 2.0f));
+    
+    public override void Shoot()
+    {
+        Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_crosshairSize * 2.0f, _crosshairSize * 2.0f);
+        ReloadTimer.Start(Stats.ReloadTime);
+        PlayerRigidbody.GetComponent<Rigidbody>().velocity -= MainCamera.transform.forward * Stats.RecoilStrength;
+        SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
+        StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));
+        SoundEffectManager.Instance.PlaySoundNoPitchDelayed(ShotgunReload, ExplosionPosition, 1.0f, 1.0f);
+        StartCoroutine(SpawnParticleEffectAfterDelay(ShotgunReloadVFX, ExplosionPosition, 1.0f, 2.0f));
     }
 
 
