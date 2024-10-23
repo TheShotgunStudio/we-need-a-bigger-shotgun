@@ -305,6 +305,7 @@ GameObject:
   - component: {fileID: 4699433248032248595}
   - component: {fileID: 1588733966431108910}
   - component: {fileID: 329203174644888542}
+  - component: {fileID: 2939478360187774523}
   m_Layer: 3
   m_Name: PlayerController
   m_TagString: Untagged
@@ -493,6 +494,19 @@ MonoBehaviour:
     type: 3}
   ShotgunMuzzleVFX: {fileID: 5959809751551950536, guid: 1c97cb654709afd418a5215ba71131e1,
     type: 3}
+--- !u!114 &2939478360187774523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2454995619284430528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3932b97bfc87b04aa208784282522cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GravityFields: []
 --- !u!1 &2557376231370809684
 GameObject:
   m_ObjectHideFlags: 0
