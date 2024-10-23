@@ -25,9 +25,9 @@ public class Shotgun : Weapon
     {
         _reloadTimer.Start(Stats.ReloadTime);
         playerRigidbody.velocity -= cameraController.CameraFollowTarget.transform.forward.normalized * Stats.RecoilStrength;
-        //SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
+        SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
         StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));
-        //SoundEffectManager.Instance.PlaySoundNoPitchDelayed(ShotgunReload, ExplosionPosition, 1.0f, 1.0f);
+        SoundEffectManager.Instance.PlaySoundNoPitchDelayed(ShotgunReload, ExplosionPosition, 1.0f, 1.0f);
         StartCoroutine(SpawnParticleEffectAfterDelay(ShotgunReloadVFX, ExplosionPosition, 1.0f, 2.0f));
     }
 
