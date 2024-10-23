@@ -154,7 +154,7 @@ public class WeaponHitDetection : MonoBehaviour
         //YOU SHOULD CALL A FUNCTION HERE THAT 
 
         //Creates a "DebugPelletHitIndicator" wherever the bullet hits. Was used in testing. Is disabled but left in for convenience. 
-        //Instantiate(DebugPelletHitIndicator, target.point, Quaternion.identity);
+        Instantiate(DebugPelletHitIndicator, target.point, Quaternion.identity);
     }
 
     // Update is called once per frame
