@@ -33,6 +33,11 @@ public class MoveState : ControlState, IAttackHandler, IJumpHandler
     /// </summary>
     private int _storedJumpFrames = 0;
 
+    /// <summary>
+    /// Number of frames touching ground before drag starts to take effect
+    /// </summary>
+    private int _dragGraceFrames = 5;
+
     public Dictionary<string, IAbstractState> Neighbors { get; private set; } = new Dictionary<string, IAbstractState>();
     public IFiniteStateMachine.StateSetter StateSetter { get; private set; }
 
@@ -96,16 +101,13 @@ public class MoveState : ControlState, IAttackHandler, IJumpHandler
         } else if (velocity.magnitude <= _playerStats.Speed && _groundedFrames > 0)
         {
             // Apply strong drag to the movement
-            float drag = 30.0F;
-            ApplyDrag(ref velocity, 30.0F);
+            ApplyDrag(ref velocity, _playerStats.Drag * 2.0F);
         }
 
         // Apply drag when grounded with a grace period if only grounded for a short while
         if (_groundedFrames > 0)
         {
-            float drag = 15.0F;
-            int dragGraceFrames = 5;
-            float appliedDrag = Mathf.Clamp(_groundedFrames - dragGraceFrames, 0, maxGroundedTracking) / (maxGroundedTracking - dragGraceFrames) * drag;
+            float appliedDrag = Mathf.Clamp(_groundedFrames - _dragGraceFrames, 0, maxGroundedTracking) / (maxGroundedTracking - _dragGraceFrames) * _playerStats.Drag;
             ApplyDrag(ref velocity, appliedDrag);
         }
 

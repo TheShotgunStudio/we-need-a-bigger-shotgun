@@ -20,5 +20,5 @@ MonoBehaviour:
   AirTurning: 7
   CritRate: 0
   CritDamage: 1.5
-  Drag: 0
+  Drag: 15
   SpeedCap: 30
