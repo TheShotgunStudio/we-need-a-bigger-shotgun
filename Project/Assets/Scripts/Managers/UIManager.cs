@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
 {
     public GameObject PauseMenu;
     public GameObject SettingsMenu;
+    public UpgradeDisplay UpgradeDisplay;
 
 
     /// <summary>
@@ -61,5 +62,11 @@ public class UIManager : MonoBehaviour
     /// <param name="sfxValue">New desired Sound effects volume level on a scale of 0-100</param>
     public void ChangeSFXVolume(float sfxValue) {
         // Add implementation
+    }
+
+    public void OpenUpgradeDisplay()
+    {
+        UpgradeDisplay.gameObject.SetActive(true);
+        UpgradeDisplay.Initialize();
     }
 }

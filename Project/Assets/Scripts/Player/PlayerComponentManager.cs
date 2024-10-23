@@ -14,6 +14,8 @@ public class PlayerComponentManager : MonoBehaviour
     public PlayerInputHandler InputHandler;
     [HideInInspector]
     public Rigidbody Rigidbody;
+    public Transform PlayerModel;
+    public Transform PlayerSpine;
 
     void OnEnable()
     {

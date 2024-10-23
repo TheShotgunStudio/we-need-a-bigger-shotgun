@@ -5,10 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Stats", menuName = "Stats/PlayerStats")]
 public class PlayerStats : Stats
 {
-    public float Speed = 6.0F;
-    public float Acceleration = 1.0F;
-    public float TurnTime = 0.1F;
+    public float Acceleration;
+    public float TurnTime;
+    public float AirTurning;
     public float CritRate;
-    public float CritDamage = 1.5f;
-    public float KnockbackForce;
+    public float CritDamage;
 }
