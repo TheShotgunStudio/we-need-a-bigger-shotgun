@@ -32,7 +32,6 @@ public class HealthDisplay : MonoBehaviour
         } else {
             Debug.LogError("No RectTransform found");
         }
-        InitiateHealth();
     }
 
     void Update() {
@@ -50,7 +49,7 @@ public class HealthDisplay : MonoBehaviour
     }
 
 
-    private void InitiateHealth() 
+    public void InitiateHealth() 
     {
         _currentHealth = _maxHealth;
 

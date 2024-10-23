@@ -10,7 +10,7 @@ public class Health : MonoBehaviour
 
     public List<HealthDisplay> HealthDisplayObjects;
 
-    private void Awake()
+    private void Start()
     {
         if (TryGetComponent(out PlayerController player))
         {
@@ -23,6 +23,7 @@ public class Health : MonoBehaviour
         foreach (HealthDisplay healthdisplayObject in HealthDisplayObjects)
         {
             healthdisplayObject.SetMaxHealth(_maxHealth);
+            healthdisplayObject.InitiateHealth();
         }
 
         _currentHealth = _maxHealth;
