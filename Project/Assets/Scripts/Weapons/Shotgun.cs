@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class Shotgun : MonoBehaviour
+public class Shotgun : Weapon
 {
     public Transform MainCamera;   
     public Transform ExplosionPosition;
