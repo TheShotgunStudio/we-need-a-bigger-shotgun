@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6862128229457016524}
   - component: {fileID: 7499112602555495315}
-  - component: {fileID: 1418331954292062346}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -46,18 +45,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139588486717451060}
   m_CullTransparentMesh: 1
---- !u!114 &1418331954292062346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2139588486717451060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96248b1bfdc1e447afcab0666577884, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3232223622477541729
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +110,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press "E" - Get Upgrade
+  m_text: Prompt
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -256,7 +243,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: -876546973899608171, guid: b36a3b9b57aecad4a848d69949c0f07c, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -312,8 +299,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UpgradeDisplay: {fileID: 0}
-  _prompt: Get Upgrade
+  PromptText: {fileID: 1436697684404129127}
+  _prompt: Press "E" - Get Upgrade
   _used: 0
+  _materialAfterUse: {fileID: -6478536213147159724, guid: b36a3b9b57aecad4a848d69949c0f07c,
+    type: 3}
 --- !u!1 &8918157457608015438
 GameObject:
   m_ObjectHideFlags: 0
