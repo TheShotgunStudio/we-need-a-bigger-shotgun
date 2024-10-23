@@ -50,7 +50,7 @@ public class Health : MonoBehaviour
     public void TakeDamage(float damageAmount)
     {
         _currentHealth -= damageAmount;
-
+        Debug.Log("take damage " + damageAmount);
         if(HealthDisplayObj != null) {
             HealthDisplayObj.LoseHealth(damageAmount);
         }

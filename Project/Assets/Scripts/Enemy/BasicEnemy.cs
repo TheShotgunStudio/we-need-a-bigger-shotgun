@@ -42,4 +42,12 @@ public class BasicEnemy : MonoBehaviour
     {
         Agent.speed = Stats.Speed;
     }
+
+    /// <summary>
+    /// Returns the attack damage of the enemy
+    /// </summary>
+    public float GetDamage()
+    {
+        return Stats.Attack;
+    }
 }
