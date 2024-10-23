@@ -58,7 +58,6 @@ public class WeaponHitDetection : MonoBehaviour
     {
         List<Vector3> spreadPattern = new List<Vector3>();
         float normalizedSpreadAngle = spreadAngle / 100;
-        Debug.Log(normalizedSpreadAngle);
 
         Vector3 baseDirection = (gunTarget - bulletOriginPoint).normalized;
         spreadPattern.Add(baseDirection);
@@ -125,6 +124,12 @@ public class WeaponHitDetection : MonoBehaviour
         return spreadPattern;
     }
 
+    /// <summary>
+    /// Does raycasts for each Vector3 in the spread pattern, This is when the actual "Shot" happens.
+    /// </summary>
+    /// <param name="spreadPattern">A list of Vector3 that </param>
+    /// <param name="bulletOriginPoint">The Bullet origin point. usually the end of a gun.</param>
+    /// <returns>A List of RaycastHit. Which contains every pellet and whatever it hit.</returns>
     public List<RaycastHit> DeterminePelletHits(List<Vector3> spreadPattern, Transform bulletOriginPoint)
     {
         List<RaycastHit> hits = new List<RaycastHit>();
@@ -146,8 +151,10 @@ public class WeaponHitDetection : MonoBehaviour
     /// <param name="target">A bullet that hit something.</param>
     public void DoOnBulletHitAction(RaycastHit target)
     {
+        //YOU SHOULD CALL A FUNCTION HERE THAT 
+
         //Creates a "DebugPelletHitIndicator" wherever the bullet hits. Was used in testing. Is disabled but left in for convenience. 
-        Instantiate(DebugPelletHitIndicator, target.point, Quaternion.identity);
+        //Instantiate(DebugPelletHitIndicator, target.point, Quaternion.identity);
     }
 
     // Update is called once per frame
