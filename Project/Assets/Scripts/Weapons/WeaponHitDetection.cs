@@ -153,7 +153,7 @@ public class WeaponHitDetection : MonoBehaviour
     {
         //YOU SHOULD CALL A FUNCTION HERE THAT 
         if ( target.transform.gameObject.TryGetComponent(out Health healthScript)) {
-            healthScript.TakeDamage(1); // TODO turn this into a better function
+            healthScript.TakeDamage(0.1f); // TODO turn this into a better function
         }
        
 
