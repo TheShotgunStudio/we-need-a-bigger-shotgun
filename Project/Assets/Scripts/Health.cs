@@ -20,10 +20,10 @@ public class Health : MonoBehaviour
         {
             _maxHealth = enemy.Stats.Health;
         }
-        foreach (HealthDisplay healthdisplayObject in HealthDisplayObjects)
+        foreach (HealthDisplay healthDisplayObject in HealthDisplayObjects)
         {
-            healthdisplayObject.SetMaxHealth(_maxHealth);
-            healthdisplayObject.InitiateHealth();
+            healthDisplayObject.SetMaxHealth(_maxHealth);
+            healthDisplayObject.InitiateHealth();
         }
 
         _currentHealth = _maxHealth;
@@ -39,9 +39,9 @@ public class Health : MonoBehaviour
 
         Heal(amount);
 
-        foreach (HealthDisplay healthdisplayObject in HealthDisplayObjects)
+        foreach (HealthDisplay healthDisplayObject in HealthDisplayObjects)
         {
-            healthdisplayObject.SetMaxHealth(_maxHealth);
+            healthDisplayObject.SetMaxHealth(_maxHealth);
         }
     }
 
@@ -53,9 +53,9 @@ public class Health : MonoBehaviour
     {
         _currentHealth += healingAmount;
 
-        foreach (HealthDisplay healthdisplayObject in HealthDisplayObjects)
+        foreach (HealthDisplay healthDisplayObject in HealthDisplayObjects)
         {
-            healthdisplayObject.GainHealth(healingAmount);
+            healthDisplayObject.GainHealth(healingAmount);
         }
 
         if (_currentHealth >= _maxHealth) _currentHealth = _maxHealth;
@@ -70,9 +70,9 @@ public class Health : MonoBehaviour
     {
         _currentHealth -= damageAmount;
 
-        foreach (HealthDisplay healthdisplayObject in HealthDisplayObjects)
+        foreach (HealthDisplay healthDisplayObject in HealthDisplayObjects)
         {
-            healthdisplayObject.LoseHealth(damageAmount);
+            healthDisplayObject.LoseHealth(damageAmount);
         }
 
         if (_currentHealth <= 0) Die();
