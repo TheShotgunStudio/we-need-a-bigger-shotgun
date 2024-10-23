@@ -7,8 +7,6 @@ using UnityEngine.VFX;
 public class Shotgun : Weapon
 {
     public Transform ExplosionPosition;
-    public int RecoilForce = 0;
-    public float ReloadTime = 0.0f;
 
     public AudioClip ShotgunShot;
     public AudioClip ShotgunReload;
