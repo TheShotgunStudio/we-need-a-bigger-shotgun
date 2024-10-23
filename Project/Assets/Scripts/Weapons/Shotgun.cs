@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class Shotgun : MonoBehaviour
+public class Shotgun : Weapon
 {
     public Transform MainCamera;   
     public Transform ExplosionPosition;
@@ -21,7 +21,7 @@ public class Shotgun : MonoBehaviour
     private float _crosshairSize = 100.0f;
     private float _currentCrosshairSize = 100.0f;
 
-    private Timer _reloadTimer = new Timer();
+    private Timer _reloadTimer = new ();
 
     void Update(){
         _reloadTimer.Tick();
@@ -46,7 +46,7 @@ public class Shotgun : MonoBehaviour
         **/
     }
 
-    private void Shoot(){
+    public override void Shoot(){
             _reloadTimer.Start(ReloadTime);
             Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_crosshairSize * 2.0f, _crosshairSize * 2.0f);
             PlayerRigidbody.GetComponent<Rigidbody>().velocity -= MainCamera.transform.forward * RecoilForce;
