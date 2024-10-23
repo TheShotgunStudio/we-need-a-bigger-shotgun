@@ -12,4 +12,5 @@ public class PlayerStats : Stats
     public float CritDamage;
     public float Drag;
     public float SpeedCap;
+    public float ModelHeight;
 }

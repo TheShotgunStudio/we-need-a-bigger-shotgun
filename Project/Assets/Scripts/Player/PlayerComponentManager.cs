@@ -16,10 +16,12 @@ public class PlayerComponentManager : MonoBehaviour
     public Rigidbody Rigidbody;
     public Transform PlayerModel;
     public Transform PlayerSpine;
+    public Weapon Weapon;
 
     void OnEnable()
     {
         InputHandler = GetComponent<PlayerInputHandler>();
         Rigidbody = GetComponent<Rigidbody>();
+        Weapon = GetComponent<Weapon>();
     }
 }

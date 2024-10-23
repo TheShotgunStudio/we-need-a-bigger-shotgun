@@ -6,9 +6,7 @@ using UnityEngine.VFX;
 
 public class Shotgun : Weapon
 {
-    public Transform MainCamera;   
     public Transform ExplosionPosition;
-    public Transform PlayerRigidbody;
     public int RecoilForce = 0;
     public float ReloadTime = 0.0f;
 
@@ -28,11 +26,7 @@ public class Shotgun : Weapon
     {
         ReloadTimer.Tick();
 
-        if (Input.GetMouseButton(0) && ReloadTimer.IsFinished())
-        {
-            Shoot();
-        }
-
+        if (Crosshair == null) return;
         if(Crosshair.GetComponent<RectTransform>().sizeDelta.x != _crosshairSize){
             _currentCrosshairSize = Crosshair.GetComponent<RectTransform>().sizeDelta.x;
             _currentCrosshairSize = Mathf.Lerp(_currentCrosshairSize, _crosshairSize, Time.deltaTime);
@@ -40,16 +34,29 @@ public class Shotgun : Weapon
         }
     }
 
-    
-    public override void Shoot()
+    public override bool CanShoot()
     {
-        Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_crosshairSize * 2.0f, _crosshairSize * 2.0f);
+        return Input.GetMouseButton(0) && ReloadTimer.IsFinished();
+    }
+    
+    protected override void Shoot(Rigidbody playerRigidbody, CameraController cameraController)
+    {
         ReloadTimer.Start(Stats.ReloadTime);
-        PlayerRigidbody.GetComponent<Rigidbody>().velocity -= MainCamera.transform.forward * Stats.RecoilStrength;
-        SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
-        StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));
-        SoundEffectManager.Instance.PlaySoundNoPitchDelayed(ShotgunReload, ExplosionPosition, 1.0f, 1.0f);
-        StartCoroutine(SpawnParticleEffectAfterDelay(ShotgunReloadVFX, ExplosionPosition, 1.0f, 2.0f));
+        playerRigidbody.velocity -= cameraController.CameraFollowTarget.transform.forward * Stats.RecoilStrength;
+        if (Crosshair != null)
+        {
+            Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_crosshairSize * 2.0f, _crosshairSize * 2.0f);
+        }
+        if (SoundEffectManager.Instance != null)
+        {
+            SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
+            SoundEffectManager.Instance.PlaySoundNoPitchDelayed(ShotgunReload, ExplosionPosition, 1.0f, 1.0f);
+        }
+        if (ShotgunMuzzleVFX != null && ShotgunReloadVFX != null)
+        {
+            StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));
+            StartCoroutine(SpawnParticleEffectAfterDelay(ShotgunReloadVFX, ExplosionPosition, 1.0f, 2.0f));
+        }
     }
 
 
