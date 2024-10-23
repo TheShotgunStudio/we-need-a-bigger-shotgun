@@ -25,11 +25,14 @@ public class Shotgun : Weapon
 
     public override void TryShoot(Rigidbody playerRigidbody, CameraController cameraController)
     {
-        if (Crosshair.GetComponent<RectTransform>().sizeDelta.x != _crosshairSize)
+        if (Crosshair != null)
         {
-            _currentCrosshairSize = Crosshair.GetComponent<RectTransform>().sizeDelta.x;
-            _currentCrosshairSize = Mathf.Lerp(_currentCrosshairSize, _crosshairSize, Time.deltaTime);
-            Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_currentCrosshairSize, _currentCrosshairSize);
+            if (Crosshair.GetComponent<RectTransform>().sizeDelta.x != _crosshairSize)
+            {
+                _currentCrosshairSize = Crosshair.GetComponent<RectTransform>().sizeDelta.x;
+                _currentCrosshairSize = Mathf.Lerp(_currentCrosshairSize, _crosshairSize, Time.deltaTime);
+                Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_currentCrosshairSize, _currentCrosshairSize);
+            }
         }
 
         if (CanAttack())
@@ -41,8 +44,15 @@ public class Shotgun : Weapon
     protected override void Shoot(Rigidbody playerRigidbody, CameraController cameraController)
     {
         _reloadTimer.Start(Stats.ReloadTime);
-        Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_crosshairSize * 2.0f, _crosshairSize * 2.0f);
+        if (Crosshair != null)
+        {
+            Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_crosshairSize * 2.0f, _crosshairSize * 2.0f);
+        }
+
+        // Set the velocity
         playerRigidbody.velocity -= cameraController.CameraFollowTarget.transform.forward.normalized * Stats.RecoilStrength;
+
+        // Play visual and auditory effects
         SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
         StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));
         SoundEffectManager.Instance.PlaySoundNoPitchDelayed(ShotgunReload, ExplosionPosition, 1.0f, 1.0f);

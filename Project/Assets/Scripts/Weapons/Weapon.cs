@@ -10,7 +10,7 @@ public abstract class Weapon : MonoBehaviour
     public WeaponStats Stats;
     protected abstract void Shoot(Rigidbody playerRigidbody, CameraController cameraController);
     public abstract bool CanAttack();
-    public void TryShoot(Rigidbody playerRigidbody, CameraController cameraController)
+    public virtual void TryShoot(Rigidbody playerRigidbody, CameraController cameraController)
     {
         if (CanAttack())
         {
