@@ -9,16 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b591b1ff014d8144fb3e137d21928547, type: 3}
-  m_Name: PlayerStats
+  m_Script: {fileID: 11500000, guid: 9c87a78f2f8ffa647b637db46157c33d, type: 3}
+  m_Name: ShotgunStats
   m_EditorClassIdentifier: 
-  Health: 100
-  Attack: 20
-  Speed: 6
-  Acceleration: 1
-  TurnTime: 0.1
-  AirTurning: 7
-  CritRate: 0
-  CritDamage: 1.5
-  Drag: 15
-  SpeedCap: 30
+  Health: 0
+  Attack: 0
+  Speed: 0
+  AttackSpeed: 0
+  ReloadTime: 2.5
+  Range: 0
+  DamageDropoffRange: 0
+  RecoilStrength: 25

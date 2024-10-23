@@ -10,4 +10,6 @@ public class PlayerStats : Stats
     public float AirTurning;
     public float CritRate;
     public float CritDamage;
+    public float Drag;
+    public float SpeedCap;
 }

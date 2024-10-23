@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
         InitializeStates();
 
         PlayerComponentManager.InputHandler.OnAttackDelegates.Add((value) => OnAttackInput(value));
+        PlayerComponentManager.InputHandler.OnJumpDelegates.Add((value) => OnJumpInput(value));
     }
 
     public void InitializeStates()
@@ -84,7 +85,13 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
         if (CurrentState is not IAttackHandler) return;
         ((IAttackHandler)CurrentState).OnAttackInput(value);
     }
-    
+
+    public void OnJumpInput(InputValue value)
+    {
+        if (CurrentState is not IJumpHandler) return;
+        ((IJumpHandler)CurrentState).OnJumpInput(value);
+    }
+
     public void ApplyUpgrade(UpgradeData upgrade)
     {
         float increase;
