@@ -21,3 +21,4 @@ MonoBehaviour:
   CritRate: 0
   CritDamage: 1.5
   Drag: 0
+  SpeedCap: 30
