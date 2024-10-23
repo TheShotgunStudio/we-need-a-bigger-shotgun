@@ -13,9 +13,9 @@ public class MeleeEnemy : BasicEnemy
     private Vector3 _endLocation;
 
 
-    protected override void Start()
+
+     private void Start()
     {
-        base.Start();
         _startLocation = Melee.transform.localPosition;
         _endLocation = new Vector3(Melee.transform.localPosition.x, Melee.transform.localPosition.y, 0.8f);
 
@@ -28,7 +28,7 @@ public class MeleeEnemy : BasicEnemy
     /// </summary>
     public void StartMovment()
     {
-        base.Resetspeed(); // Reset base behavior
+        base.ResetSpeed(); // Reset base behavior
     }
 
     /// <summary>
