@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,8 +8,6 @@ public class UIManager : MonoBehaviour
     public GameObject SettingsMenu;
     public UpgradeDisplay UpgradeDisplay;
 
-    //Just for now we eventually want to pause everything in the game manager.
-    private bool _isPaused = false;
 
     /// <summary>
     /// Called whenever the on-screen pause button is pressed
@@ -19,7 +15,6 @@ public class UIManager : MonoBehaviour
     public void OpenPauseMenu() {
         PauseMenu.SetActive(true);
         Time.timeScale = 0;
-        _isPaused = true;
     }
 
     /// <summary>
@@ -28,7 +23,6 @@ public class UIManager : MonoBehaviour
     public void ClosePauseMenu() {
         PauseMenu.SetActive(false);
         Time.timeScale = 1;
-        _isPaused = false;
     }
 
     /// <summary>
@@ -74,18 +68,5 @@ public class UIManager : MonoBehaviour
     {
         UpgradeDisplay.gameObject.SetActive(true);
         UpgradeDisplay.Initialize();
-    }
-
-    public void Update(){
-        if(Input.GetKeyDown(KeyCode.Escape)){
-            if(!_isPaused){
-                OpenPauseMenu();
-            }
-            else{
-                ClosePauseMenu();
-            }
-        }
-
-
     }
 }

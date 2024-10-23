@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MeleeEnemy
   m_EditorClassIdentifier: 
   Health: 20
-  Attack: 4
+  Attack: 0
   Speed: 5
   Acceleration: 20
   AttackSpeed: 0.5
