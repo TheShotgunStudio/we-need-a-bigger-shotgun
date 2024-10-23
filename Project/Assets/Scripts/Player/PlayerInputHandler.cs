@@ -96,6 +96,23 @@ public class PlayerInputHandler : MonoBehaviour
     }
 
     /// <summary>
+    /// List of delegates to be called when an input is received
+    /// </summary>
+    public List<InputDelegate> OnJumpDelegates { get; private set; } = new List<InputDelegate>();
+
+    /// <summary>
+    /// Called when the player presses the jump button
+    /// </summary>
+    /// <param name="value">Generic input value</param>
+    public void OnJump(InputValue value)
+    {
+        foreach (InputDelegate inputDelegate in OnJumpDelegates)
+        {
+            inputDelegate.Invoke(value);
+        }
+    }
+
+    /// <summary>
     /// Gets the current direction of input in input space
     /// </summary>
     /// <returns></returns>

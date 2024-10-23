@@ -17,6 +17,8 @@ MonoBehaviour:
   Speed: 6
   Acceleration: 1
   TurnTime: 0.1
-  AirTurning: 0.07
+  AirTurning: 7
   CritRate: 0
   CritDamage: 1.5
+  Drag: 15
+  SpeedCap: 30
