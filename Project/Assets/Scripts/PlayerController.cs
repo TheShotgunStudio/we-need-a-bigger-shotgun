@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
             case "Health":
                 increase = _baseStats.Health * upgrade.Value;
                 Stats.Health += increase;
+                GetComponentInChildren<Health>().IncreaseMaxHealth(increase);
                 break;
             case "Attack":
                 increase = _baseStats.Attack * upgrade.Value;

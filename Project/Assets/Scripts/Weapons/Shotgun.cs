@@ -9,8 +9,6 @@ public class Shotgun : Weapon
     public Transform MainCamera;   
     public Transform ExplosionPosition;
     public Transform PlayerRigidbody;
-    public int RecoilForce = 0;
-    public float ReloadTime = 0.0f;
 
     public AudioClip ShotgunShot;
     public AudioClip ShotgunReload;
