@@ -6,9 +6,14 @@ public class Bullet : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {        
-        if (other.CompareTag("Player") 
-        || other.gameObject.CompareTag("Ground") 
-        || other.gameObject.CompareTag("Wall"))
+        if (other.CompareTag("Player"))
+        {
+            Destroy(this.gameObject);
+            if (other.TryGetComponent<Health>(out Health healthScript)) {
+                healthScript.TakeDamage(5); // TODO change to use stats Currently 5 damage
+            }
+        } else if (other.gameObject.CompareTag("Ground") 
+                || other.gameObject.CompareTag("Wall")) 
         {
             Destroy(this.gameObject);
         }

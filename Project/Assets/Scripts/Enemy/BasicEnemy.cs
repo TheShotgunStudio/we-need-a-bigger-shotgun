@@ -15,7 +15,7 @@ public class BasicEnemy : MonoBehaviour
     public EnemyStats Stats;
     protected float AttackCooldown;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         Stats = (EnemyStats)_baseStats.Clone();
         AttackCooldown = 1f / Stats.AttackSpeed;
@@ -41,5 +41,13 @@ public class BasicEnemy : MonoBehaviour
     protected void ResetSpeed()
     {
         Agent.speed = Stats.Speed;
+    }
+
+    /// <summary>
+    /// Returns the attack damage of the enemy
+    /// </summary>
+    public float GetDamage()
+    {
+        return Stats.Attack;
     }
 }
