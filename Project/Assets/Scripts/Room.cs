@@ -80,8 +80,8 @@ public class Room : MonoBehaviour
     {
         foreach (Door door in Doors)
         {
-            // door.OpenDoor();
-            door.gameObject.SetActive(false);
+            door.OpenDoor();
+            // door.gameObject.SetActive(false);
         }
     }
 
@@ -89,8 +89,8 @@ public class Room : MonoBehaviour
     {
         foreach (Door door in Doors)
         {
-            // door.CloseDoor();
-            door.gameObject.SetActive(true);
+            door.CloseDoor();
+            // door.gameObject.SetActive(true);
         }
     }
 }
