@@ -20,11 +20,28 @@ public class Health : MonoBehaviour
         {
             _maxHealth = enemy.Stats.Health;
         }
-        if(HealthDisplayObj != null) {
+        if (HealthDisplayObj != null)
+        {
             HealthDisplayObj.SetMaxHealth(_maxHealth);
         }
 
         _currentHealth = _maxHealth;
+    }
+
+    /// <summary>
+    /// Increases the max health of the entity
+    /// </summary>
+    /// <param name="amount">Amount to increase max health by</param>
+    public void IncreaseMaxHealth(float amount)
+    {
+        _maxHealth += amount;
+
+        Heal(amount);
+
+        if (HealthDisplayObj != null)
+        {
+            HealthDisplayObj.SetMaxHealth(_maxHealth);
+        }
     }
 
     /// <summary>
@@ -35,12 +52,13 @@ public class Health : MonoBehaviour
     {
         _currentHealth += healingAmount;
 
-        if(HealthDisplayObj != null) {
+        if (HealthDisplayObj != null)
+        {
             HealthDisplayObj.GainHealth(healingAmount);
         }
 
         if (_currentHealth >= _maxHealth) _currentHealth = _maxHealth;
-        
+
     }
 
     /// <summary>
@@ -51,7 +69,8 @@ public class Health : MonoBehaviour
     {
         _currentHealth -= damageAmount;
 
-        if(HealthDisplayObj != null) {
+        if (HealthDisplayObj != null)
+        {
             HealthDisplayObj.LoseHealth(damageAmount);
         }
 

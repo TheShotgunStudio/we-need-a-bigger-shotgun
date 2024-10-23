@@ -20,6 +20,7 @@ public class UpgradeMachine : MonoBehaviour, IInteractable
     private void Start()
     {
         _renderer = GetComponent<Renderer>();
+        PromptText.enabled = false;
 
         PromptText.text = _prompt;
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,7 +15,7 @@ public class Interactor : MonoBehaviour
     private LayerMask _interactableMask;
     private readonly Collider[] _colliders = new Collider[3];
     private int _collidersFound;
-    private GameObject _currentInteractableChild;
+    private TextMeshProUGUI _currentPrompt;
 
     private void Update()
     {
@@ -22,7 +23,7 @@ public class Interactor : MonoBehaviour
 
         if (_collidersFound <= 0)
         {
-            DeactivateCurrentChild();
+            DeactivateCurrentPrompt();
             return;
         }
 
@@ -30,37 +31,37 @@ public class Interactor : MonoBehaviour
         {
             if (interactable.Used) return;
 
-            // Get the child GameObject
-            GameObject interactableChild = _colliders[0].transform.GetChild(0).gameObject;
+            // Get the prompt from the Interactable
+            TextMeshProUGUI prompt = _colliders[0].gameObject.GetComponentInChildren<TextMeshProUGUI>();
 
-            if (interactableChild != _currentInteractableChild)
+            if (prompt != _currentPrompt)
             {
-                // Deactivate the currently active child if it exists
-                if (_currentInteractableChild != null)
+                // Deactivate the currently active prompt if it exists
+                if (_currentPrompt != null)
                 {
-                    _currentInteractableChild.SetActive(false);
+                    _currentPrompt.enabled = false;
                 }
 
-                // Activate the new interactable child
-                interactableChild.SetActive(true);
-                _currentInteractableChild = interactableChild;
+                // Activate the new prompt
+                prompt.enabled = true;
+                _currentPrompt = prompt;
             }
 
             if (Keyboard.current.eKey.wasPressedThisFrame)
             {
                 interactable.Interact(this);
-                DeactivateCurrentChild();
+                DeactivateCurrentPrompt();
             }
         }
 
     }
 
-    private void DeactivateCurrentChild()
+    private void DeactivateCurrentPrompt()
     {
-        if (_currentInteractableChild == null) return;
+        if (_currentPrompt == null) return;
 
-        _currentInteractableChild.SetActive(false);
-        _currentInteractableChild = null;
+        _currentPrompt.enabled = false;
+        _currentPrompt = null;
     }
 
     private void OnDrawGizmos()
