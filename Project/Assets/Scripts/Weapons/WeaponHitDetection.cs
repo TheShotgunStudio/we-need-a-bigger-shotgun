@@ -152,9 +152,13 @@ public class WeaponHitDetection : MonoBehaviour
     public void DoOnBulletHitAction(RaycastHit target)
     {
         //YOU SHOULD CALL A FUNCTION HERE THAT 
+        if ( target.transform.gameObject.TryGetComponent(out Health healthScript)) {
+            healthScript.TakeDamage(1); // TODO turn this into a better function
+        }
+       
 
         //Creates a "DebugPelletHitIndicator" wherever the bullet hits. Was used in testing. Is disabled but left in for convenience. 
-        Instantiate(DebugPelletHitIndicator, target.point, Quaternion.identity);
+        // Instantiate(DebugPelletHitIndicator, target.point, Quaternion.identity);
     }
 
     // Update is called once per frame
