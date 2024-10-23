@@ -21,12 +21,15 @@ public class Shotgun : Weapon
     private float _crosshairSize = 100.0f;
     private float _currentCrosshairSize = 100.0f;
 
-    private Timer _reloadTimer = new ();
+    [HideInInspector]
+    public Timer ReloadTimer = new();
 
-    void Update(){
-        _reloadTimer.Tick();
+    void Update()
+    {
+        ReloadTimer.Tick();
 
-        if(Input.GetMouseButton(0) && _reloadTimer.IsFinished()){
+        if (Input.GetMouseButton(0) && ReloadTimer.IsFinished())
+        {
             Shoot();
         }
 
@@ -38,22 +41,15 @@ public class Shotgun : Weapon
     }
 
     
-    void FixedUpdate()
+    public override void Shoot()
     {
-        /**
-            Might be necessary for the rigidbody physics I just didn't want to put the timer ticker here 
-            because it might cause some weird stuff to happen. This ticks at a solid 60 fps while update goes much faster.
-        **/
-    }
-
-    public override void Shoot(){
-            _reloadTimer.Start(ReloadTime);
-            Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_crosshairSize * 2.0f, _crosshairSize * 2.0f);
-            PlayerRigidbody.GetComponent<Rigidbody>().velocity -= MainCamera.transform.forward * RecoilForce;
-            SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
-            StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));
-            SoundEffectManager.Instance.PlaySoundNoPitchDelayed(ShotgunReload, ExplosionPosition, 1.0f, 1.0f);
-            StartCoroutine(SpawnParticleEffectAfterDelay(ShotgunReloadVFX, ExplosionPosition, 1.0f, 2.0f));
+        Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_crosshairSize * 2.0f, _crosshairSize * 2.0f);
+        ReloadTimer.Start(Stats.ReloadTime);
+        PlayerRigidbody.GetComponent<Rigidbody>().velocity -= MainCamera.transform.forward * Stats.RecoilStrength;
+        SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
+        StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));
+        SoundEffectManager.Instance.PlaySoundNoPitchDelayed(ShotgunReload, ExplosionPosition, 1.0f, 1.0f);
+        StartCoroutine(SpawnParticleEffectAfterDelay(ShotgunReloadVFX, ExplosionPosition, 1.0f, 2.0f));
     }
 
 
