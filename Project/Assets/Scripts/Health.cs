@@ -8,6 +8,8 @@ public class Health : MonoBehaviour
     private float _currentHealth;
     public float CurrentHealth { get { return _currentHealth; } }
 
+    public HealthDisplay HealthDisplayObj;
+
     private void Start()
     {
         if (TryGetComponent(out PlayerController player))
@@ -17,6 +19,9 @@ public class Health : MonoBehaviour
         else if (TryGetComponent(out BasicEnemy enemy))
         {
             _maxHealth = enemy.Stats.Health;
+        }
+        if(HealthDisplayObj != null) {
+            HealthDisplayObj.SetMaxHealth(_maxHealth);
         }
 
         _currentHealth = _maxHealth;
@@ -30,7 +35,12 @@ public class Health : MonoBehaviour
     {
         _currentHealth += healingAmount;
 
+        if(HealthDisplayObj != null) {
+            HealthDisplayObj.GainHealth(healingAmount);
+        }
+
         if (_currentHealth >= _maxHealth) _currentHealth = _maxHealth;
+        
     }
 
     /// <summary>
@@ -40,6 +50,10 @@ public class Health : MonoBehaviour
     public void TakeDamage(float damageAmount)
     {
         _currentHealth -= damageAmount;
+
+        if(HealthDisplayObj != null) {
+            HealthDisplayObj.LoseHealth(damageAmount);
+        }
 
         if (_currentHealth <= 0) Die();
     }

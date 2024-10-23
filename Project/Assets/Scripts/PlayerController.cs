@@ -36,17 +36,20 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
         SetState(States[stateKey]);
     }
 
+    void Awake() { // make sure the state are initiated when needed
+        if (Stats == null)
+        {
+            Stats = (PlayerStats)_baseStats.Clone();
+        }
+    }
+
     void Start()
     {
         if (CameraController == null)
         {
             throw new NullReferenceException("CameraController not set for PlayerController.");
         }
-        if (Stats == null)
-        {
-            Stats = (PlayerStats)_baseStats.Clone();
-        }
-
+        
         PlayerComponentManager = GetComponent<PlayerComponentManager>();
         InitializeStates();
 
