@@ -9,8 +9,6 @@ public class Shotgun : Weapon
     public Transform MainCamera;   
     public Transform ExplosionPosition;
     public Transform PlayerRigidbody;
-    public int RecoilForce = 0;
-    public float ReloadTime = 0.0f;
 
     public AudioClip ShotgunShot;
     public AudioClip ShotgunReload;
@@ -37,19 +35,10 @@ public class Shotgun : Weapon
         }
     }
 
-    
-    void FixedUpdate()
-    {
-        /**
-            Might be necessary for the rigidbody physics I just didn't want to put the timer ticker here 
-            because it might cause some weird stuff to happen. This ticks at a solid 60 fps while update goes much faster.
-        **/
-    }
-
     public override void Shoot(){
-            _reloadTimer.Start(ReloadTime);
+            _reloadTimer.Start(Stats.ReloadTime);
             Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_crosshairSize * 2.0f, _crosshairSize * 2.0f);
-            PlayerRigidbody.GetComponent<Rigidbody>().velocity -= MainCamera.transform.forward * RecoilForce;
+            PlayerRigidbody.GetComponent<Rigidbody>().velocity -= MainCamera.transform.forward * Stats.RecoilStrength;
             SoundEffectManager.Instance.PlaySound(ShotgunShot, ExplosionPosition, 1.0f);
             StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));
             SoundEffectManager.Instance.PlaySoundNoPitchDelayed(ShotgunReload, ExplosionPosition, 1.0f, 1.0f);
