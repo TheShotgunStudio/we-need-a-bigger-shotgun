@@ -13,7 +13,6 @@ public class Door : MonoBehaviour
 
     public void CloseDoor()
     {
-        Debug.Log("Closing: " + this.gameObject.name);
         if (_animator == null) return;
         
         _animator.SetTrigger("Close");
@@ -21,7 +20,6 @@ public class Door : MonoBehaviour
 
     public void OpenDoor()
     {
-        Debug.Log("Opening: " + this.gameObject.name);
         if (_animator == null) return;
 
         _animator.SetTrigger("Open");

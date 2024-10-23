@@ -49,6 +49,10 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
         {
             throw new NullReferenceException("CameraController not set for PlayerController.");
         }
+
+        // Confines the cursor
+        Cursor.lockState = CursorLockMode.Confined; //TODO find proper location for this
+        // Cursor.visible = false; 
         
         PlayerComponentManager = GetComponent<PlayerComponentManager>();
         InitializeStates();
