@@ -903,6 +903,37 @@ Transform:
   - {fileID: 5497578789608777366}
   m_Father: {fileID: 4964924014657265063}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2833362838220595638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8610090882122084058}
+  m_Layer: 2
+  m_Name: InteractionPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8610090882122084058
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2833362838220595638}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.493, z: 0.725}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4156175201858052029}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3212521886872151747
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,7 +982,9 @@ GameObject:
   - component: {fileID: 5123978541361889675}
   - component: {fileID: 6175018879512718878}
   - component: {fileID: 7867276941029375814}
+  - component: {fileID: 3354129472989121696}
   - component: {fileID: 4489516485603324412}
+  - component: {fileID: 498212367941690106}
   m_Layer: 2
   m_Name: Character
   m_TagString: Player
@@ -973,6 +1006,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6053452407907196681}
+  - {fileID: 8610090882122084058}
   m_Father: {fileID: 5784359466819855394}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2455848833424390140
@@ -1090,6 +1124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InputHandler: {fileID: 0}
   Rigidbody: {fileID: 0}
+  Weapon: {fileID: 0}
   PlayerModel: {fileID: 6866555785328787940}
   PlayerSpine: {fileID: 5174662510629292873}
 --- !u!114 &7867276941029375814
@@ -1109,6 +1144,26 @@ MonoBehaviour:
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 65
+--- !u!114 &3354129472989121696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264426100513807309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89908719ae6fdf149b4c3e926ef3d39f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpreadType: 1
+  SpreadAngle: 5.3
+  PelletCount: 9
+  MainCamera: {fileID: 0}
+  Crosshair: {fileID: 0}
+  Weapon: {fileID: 4489516485603324412}
+  BulletOriginPoint: {fileID: 7492072139183638053}
+  DebugPelletHitIndicator: {fileID: 0}
 --- !u!114 &4489516485603324412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1123,11 +1178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseStats: {fileID: 11400000, guid: c10347b4e78613748ac04dbed3ce267e, type: 2}
   Stats: {fileID: 0}
-  MainCamera: {fileID: 0}
   ExplosionPosition: {fileID: 7492072139183638053}
-  PlayerRigidbody: {fileID: 0}
-  RecoilForce: 0
-  ReloadTime: 0
   ShotgunShot: {fileID: 8300000, guid: c2ca2e8d6fe141a44aef6097a677e124, type: 3}
   ShotgunReload: {fileID: 8300000, guid: 12a7442cd6df28f47a0196244edb4d9f, type: 3}
   ShotgunReloadVFX: {fileID: 1353141561521026605, guid: 34cbd754083b06c49b1e0036df2bd0d4,
@@ -1135,6 +1186,23 @@ MonoBehaviour:
   ShotgunMuzzleVFX: {fileID: 5959809751551950536, guid: 1c97cb654709afd418a5215ba71131e1,
     type: 3}
   Crosshair: {fileID: 0}
+--- !u!114 &498212367941690106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264426100513807309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38c6b7fc76d2f2a418146d37105d5852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactionPoint: {fileID: 8610090882122084058}
+  _interactionPointRadius: 0.5
+  _interactableMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &3500695957244227003
 GameObject:
   m_ObjectHideFlags: 0

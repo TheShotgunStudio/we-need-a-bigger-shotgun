@@ -6,7 +6,7 @@ public class Room : MonoBehaviour
 {
     // Create an Enemy List with all active enemies in the room
     // public List<Enemy> Enemies = new();
-    public UpgradeDisplay UpgradeDisplay;
+    public UpgradeMachine UpgradeMachine;
     public List<GameObject> Enemies = new();
     public List<Door> Doors;
     private bool _roomCleared = false;
@@ -18,6 +18,10 @@ public class Room : MonoBehaviour
         foreach (GameObject enemy in Enemies)
         {
             enemy.SetActive(false);
+        }
+        if (UpgradeMachine != null)
+        {
+            UpgradeMachine.gameObject.SetActive(false);
         }
     }
 
@@ -62,26 +66,22 @@ public class Room : MonoBehaviour
 
     private void RoomCompleted()
     {
-        ShowUpgrades();
+        if (UpgradeMachine != null)
+        {
+            UpgradeMachine.gameObject.SetActive(true);
+        }
+        
         OpenDoors();
 
         _roomCleared = true;
-    }
-
-    private void ShowUpgrades()
-    {
-        if (UpgradeDisplay == null) return;
-
-        UpgradeDisplay.gameObject.SetActive(true);
-        UpgradeDisplay.Initialize();
     }
 
     private void OpenDoors()
     {
         foreach (Door door in Doors)
         {
-            // door.OpenDoor();
-            door.gameObject.SetActive(false);
+            door.OpenDoor();
+            // door.gameObject.SetActive(false);
         }
     }
 
@@ -89,8 +89,8 @@ public class Room : MonoBehaviour
     {
         foreach (Door door in Doors)
         {
-            // door.CloseDoor();
-            door.gameObject.SetActive(true);
+            door.CloseDoor();
+            // door.gameObject.SetActive(true);
         }
     }
 }
