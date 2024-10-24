@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class WeaponHitDetection : MonoBehaviour
 {
+    //Deprecated
     [Tooltip("Type of bullet spread: \nFixed spread creates a circle of pellets around one perfectly accurate pellet. \nRandom will create a random spread of pellets around one perfectly accurate pellet.\nNone will create one pellet that is perfectly accurate.")]
     public SpreadType SpreadType;
 
