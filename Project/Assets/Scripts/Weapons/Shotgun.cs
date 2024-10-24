@@ -13,7 +13,7 @@ public class Shotgun : Weapon
 
     public GameObject ShotgunReloadVFX;
     public GameObject ShotgunMuzzleVFX;
-    public GameObject Crosshair;
+    public RectTransform Crosshair;
     private float _crosshairSize = 100.0f;
     private float _currentCrosshairSize = 100.0f;
 
@@ -25,10 +25,10 @@ public class Shotgun : Weapon
         ReloadTimer.Tick();
 
         if (Crosshair == null) return;
-        if(Crosshair.GetComponent<RectTransform>().sizeDelta.x != _crosshairSize){
-            _currentCrosshairSize = Crosshair.GetComponent<RectTransform>().sizeDelta.x;
+        if(Crosshair.sizeDelta.x != _crosshairSize){
+            _currentCrosshairSize = Crosshair.sizeDelta.x;
             _currentCrosshairSize = Mathf.Lerp(_currentCrosshairSize, _crosshairSize, Time.deltaTime);
-            Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_currentCrosshairSize, _currentCrosshairSize);
+            Crosshair.sizeDelta = new Vector2(_currentCrosshairSize, _currentCrosshairSize);
         }
     }
 
@@ -43,7 +43,7 @@ public class Shotgun : Weapon
         playerRigidbody.velocity -= cameraController.CameraFollowTarget.transform.forward * Stats.RecoilStrength;
         if (Crosshair != null)
         {
-            Crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(_crosshairSize * 2.0f, _crosshairSize * 2.0f);
+            Crosshair.sizeDelta = new Vector2(_crosshairSize * 2.0f, _crosshairSize * 2.0f);
         }
         if (SoundEffectManager.Instance != null)
         {
@@ -55,6 +55,7 @@ public class Shotgun : Weapon
             StartCoroutine(SpawnVisualEffectAfterDelay(ShotgunMuzzleVFX, ExplosionPosition, 0.0f, 1.0f));
             StartCoroutine(SpawnParticleEffectAfterDelay(ShotgunReloadVFX, ExplosionPosition, 1.0f, 2.0f));
         }
+        DoHitReg(ExplosionPosition, Maincamera, Crosshair);
     }
 
 

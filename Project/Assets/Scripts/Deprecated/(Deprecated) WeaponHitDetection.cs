@@ -4,14 +4,9 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum SpreadType
-{
-    FIXED,
-    RANDOM,
-    NONE
-}
 public class WeaponHitDetection : MonoBehaviour
 {
+    //Deprecated
     [Tooltip("Type of bullet spread: \nFixed spread creates a circle of pellets around one perfectly accurate pellet. \nRandom will create a random spread of pellets around one perfectly accurate pellet.\nNone will create one pellet that is perfectly accurate.")]
     public SpreadType SpreadType;
 
@@ -156,39 +151,32 @@ public class WeaponHitDetection : MonoBehaviour
         //Creates a "DebugPelletHitIndicator" wherever the bullet hits. Was used in testing. Is disabled but left in for convenience. 
         //Instantiate(DebugPelletHitIndicator, target.point, Quaternion.identity);
     }
-
-    // Update is called once per frame
-    void Update()
+    void DoHitReg()
     {
-        //
-        if (Input.GetMouseButton(0))//&& Weapon.ReloadTimer.IsFinished())
+        Vector3 gunTarget = CrosshairToGunTarget();
+        List<Vector3> spreadPattern;
+        if (SpreadType == SpreadType.RANDOM)
         {
-            Vector3 gunTarget = CrosshairToGunTarget();
-            List<Vector3> spreadPattern;
-            if (SpreadType == SpreadType.RANDOM)
-            {
-                spreadPattern = DetermineRandomSpreadPattern(BulletOriginPoint.position, gunTarget, 9);
-            }
-            else if (SpreadType == SpreadType.FIXED)
-            {
-                spreadPattern = DetermineFixedSpreadDirection(BulletOriginPoint.position, gunTarget, 9);
-            }
-            else if(SpreadType == SpreadType.NONE)
-            {
-                spreadPattern = NoSpreadPattern(BulletOriginPoint.position, gunTarget);
-            }
-            else
-            {
-                Debug.LogError("Unknown Spread Type. No spread will be added");
-                spreadPattern = NoSpreadPattern(BulletOriginPoint.position, gunTarget);
-            }
-            var hits = DeterminePelletHits(spreadPattern, BulletOriginPoint);
+            spreadPattern = DetermineRandomSpreadPattern(BulletOriginPoint.position, gunTarget, 9);
+        }
+        else if (SpreadType == SpreadType.FIXED)
+        {
+            spreadPattern = DetermineFixedSpreadDirection(BulletOriginPoint.position, gunTarget, 9);
+        }
+        else if(SpreadType == SpreadType.NONE)
+        {
+            spreadPattern = NoSpreadPattern(BulletOriginPoint.position, gunTarget);
+        }
+        else
+        {
+            Debug.LogError("Unknown Spread Type. No spread will be added");
+            spreadPattern = NoSpreadPattern(BulletOriginPoint.position, gunTarget);
+        }
+        var hits = DeterminePelletHits(spreadPattern, BulletOriginPoint);
 
-            foreach (var target in hits)
-            {
-                DoOnBulletHitAction(target);
-            }
-
+        foreach (var target in hits)
+        {
+            DoOnBulletHitAction(target);
         }
     }
 }
