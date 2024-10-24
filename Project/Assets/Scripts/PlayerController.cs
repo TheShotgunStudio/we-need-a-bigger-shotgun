@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour, IFiniteStateMachine, IAttackHandl
         }
 
         // Confines the cursor
-        Cursor.lockState = CursorLockMode.Confined; //TODO find proper location for this
+        Cursor.lockState = CursorLockMode.Locked; //TODO find proper location for this
         // Cursor.visible = false; 
         
         PlayerComponentManager = GetComponent<PlayerComponentManager>();
