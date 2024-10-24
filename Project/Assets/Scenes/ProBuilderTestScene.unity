@@ -7475,9 +7475,9 @@ Transform:
   - {fileID: 643878583}
   m_Father: {fileID: 2021696969}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &844670257 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 179265086315599395, guid: 670a93efb17c7824887d1f9b2cfe3471,
+--- !u!224 &844670260 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 139077500679039208, guid: 670a93efb17c7824887d1f9b2cfe3471,
     type: 3}
   m_PrefabInstance: {fileID: 989439897}
   m_PrefabAsset: {fileID: 0}
@@ -8145,6 +8145,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!20 &1564875619 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2576956137177917361, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
+    type: 3}
+  m_PrefabInstance: {fileID: 222675333554054194}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1971996131
 GameObject:
   m_ObjectHideFlags: 0
@@ -8537,12 +8543,28 @@ PrefabInstance:
         type: 3}
       propertyPath: Crosshair
       value: 
-      objectReference: {fileID: 844670257}
+      objectReference: {fileID: 844670260}
     - target: {fileID: 329203174644888542, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
         type: 3}
       propertyPath: MainCamera
       value: 
       objectReference: {fileID: 935827055}
+    - target: {fileID: 329203174644888542, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
+        type: 3}
+      propertyPath: Maincamera
+      value: 
+      objectReference: {fileID: 1564875619}
+    - target: {fileID: 329203174644888542, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
+        type: 3}
+      propertyPath: PelletCount
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 329203174644888542, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
+        type: 3}
+      propertyPath: ShotgunChargeVFX
+      value: 
+      objectReference: {fileID: 1353141561521026605, guid: 34cbd754083b06c49b1e0036df2bd0d4,
+        type: 3}
     - target: {fileID: 1588733966431108910, guid: 8bfa6ed145c4e5d43a098e35e0e77cf9,
         type: 3}
       propertyPath: CameraController

@@ -7,6 +7,7 @@ public class WeaponStats : Stats
 {
     public float AttackSpeed;
     public float ReloadTime;
+    public float ChargeTime;
     public float Range;
     public float DamageDropoffRange;
     public float RecoilStrength;

@@ -16,7 +16,8 @@ MonoBehaviour:
   Attack: 0
   Speed: 0
   AttackSpeed: 0
-  ReloadTime: 2.5
+  ReloadTime: 0.5
+  ChargeTime: 2.5
   Range: 0
   DamageDropoffRange: 0
   RecoilStrength: 25
